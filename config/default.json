@@ -1,0 +1,3 @@
+{
+    "mongoURL": "mongodb+srv://dailyTodo123:apples123@cluster0.yp66n.mongodb.net/dailyTodo?retryWrites=true&w=majority"
+}
