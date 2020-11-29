@@ -1,3 +1,4 @@
 {
-    "mongoURL": "mongodb+srv://dailyTodo123:apples123@cluster0.yp66n.mongodb.net/dailyTodo?retryWrites=true&w=majority"
+    "mongoURL": "mongodb+srv://dailyTodo123:apples123@cluster0.yp66n.mongodb.net/dailyTodo?retryWrites=true&w=majority",
+    "jwtTokenSecret": "NSjf8hf@$N@fisdu7f82$@J$T"
 }
