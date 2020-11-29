@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../../models/users');
-
+const bcrypt = require('bcrypt');
 const { check, validationResult } = require('express-validator');
+const jwt = require('jsonwebtoken');
 
 
 // POST /api/users
@@ -49,14 +50,28 @@ router.post('/', [
                 email: email
             });
 
-            
-            console.log(user)
+            // hash their password
+            const salt = 10;
+            const hash = await bcrypt.hash(password, salt);
 
-
-            // hash their password 
-
-            res.json('SUCCESS')
+            user.password = hash;
+           
             // Assemble Token
+            const payload = {
+                user : {
+                    id: user.id
+                }
+            };
+            jwt.sign({ 
+                data: payload }, 
+                TOKEN_SECRET,
+                { expiresIn: '1hr' },
+                (err, token) => {
+                    if (err) throw err ;
+                    res.json({ token });
+                });
+        
+
         } catch (err) {
             console.error(err.message);
             res.status(500).json({ msg: 'Server Error' });
