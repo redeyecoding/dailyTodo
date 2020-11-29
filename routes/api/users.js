@@ -4,7 +4,8 @@ const User = require('../../models/users');
 const bcrypt = require('bcrypt');
 const { check, validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
-const tokenSecret = process.env.TOKEN_SECRET
+const tokenSecret = process.env.TOKEN_SECRET;
+gravatar = require('gravatar');
 
 // POST /api/users
 // desc Register user
@@ -40,7 +41,7 @@ router.post('/', [
             // check for user in database ( via email )
             let user = await User.findOne({ email: email });
             if (user) {
-                res.status(400).json('That user already exists')
+                return res.status(400).json('That user already exists')
             };
 
             // build user Object from request
@@ -55,6 +56,13 @@ router.post('/', [
             const hash = await bcrypt.hash(password, salt);
 
             user.password = hash;
+
+            // Setup User Avatar
+            const avatar = gravatar.url(
+                email,
+                 {s: '100', r: 'pg', d: 'retro'});
+            
+            user.avatar = avatar;
            
             // Assemble Token
             const payload = {
@@ -70,7 +78,8 @@ router.post('/', [
                     if (err) throw err ;
                     res.json({ token });
                 });
-        
+
+            await user.save();       
 
         } catch (err) {
             console.error(err.message);
