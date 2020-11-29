@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "nodemon server"
+    "server": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -18,7 +18,10 @@
   },
   "homepage": "https://github.com/redeyecoding/dailyTodo#readme",
   "dependencies": {
+    "bcrypt": "^5.0.0",
     "config": "^3.3.3",
+    "custom-env": "^2.0.1",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-validator": "^6.7.0",
     "gravatar": "^1.8.1",
