@@ -11,7 +11,7 @@ const connectToDatabase = async () => {
 
     } catch (err) {
         console.error(err.message);
-    }
+    };
 };
 
 
