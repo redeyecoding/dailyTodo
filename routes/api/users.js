@@ -10,11 +10,6 @@ gravatar = require('gravatar');
 // POST /api/users
 // desc Register user
 // @access Public
-
-    // Registering the user will return a unique token.
-    // If information user enters already exists,
-    // tell them error and say login
-    // ELSE you create a user account for them
 router.post('/', [
     check('email', 'Email Address is required')
         .isEmail(),
@@ -60,7 +55,7 @@ router.post('/', [
             // Setup User Avatar
             const avatar = gravatar.url(
                 email,
-                 {s: '100', r: 'pg', d: 'retro'});
+                 {s: '100', r: 'pg', d: 'retro'});13
             
             user.avatar = avatar;
            
