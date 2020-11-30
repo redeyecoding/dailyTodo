@@ -1,0 +1,16 @@
+*Building the Auth middleware*
+- This is the middleware that will be used
+to protect our routes. ( authenticate a user via their token)
+
+it will need to be exported as a function so we can pass it
+into our route as middleware. Don't forget to execute
+next() so the next middleware can be ran.
+
+This middleware will look at the req.header and pull the
+'x-auth-token' from the header and attempt to verify
+its validity using JWT.
+
+if invalid, return 401 'UnAuthorized or Token invalid'
+
+If all is ok, simply manipulate the body in the current
+request by adding the user's ID (the decoded token)
