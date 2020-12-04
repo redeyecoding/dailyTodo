@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const auth = require('../../authMiddleware/auth');
 const { check, validationResult } = require('express-validator');
-const User = require('../../models/users');
+const User = require('../../models/Users');
 const { restart } = require('nodemon');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -11,7 +11,7 @@ const tokenSecret = process.env.TOKEN_SECRET;
 
 // POST /api/auth
 // Login User
-// @ACcess 
+// @ACcess Public
 router.post('/',[
     check('email', 'Email address is required')
         .isEmail(),
@@ -62,6 +62,8 @@ router.post('/',[
         res.status(500).send('Server Error')
     };
 });
+
+
 
 
 module.exports = router;
