@@ -11,24 +11,23 @@ const tokenSecret = process.env.TOKEN_SECRET;
 
 // POST /api/auth
 // Login User
-// @ACcess Public
+// @ACcess 
 router.post('/',[
     check('email', 'Email address is required')
         .isEmail(),
     check('password', 'Password is required')
-        .isLength({ min: 6 })
+        .not()
+        .isEmpty()
 ], async (req, res) => {
-    const errors = validationResult(req);
-    
+
+    const errors = validationResult(req);    
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() })
     };
 
-    // pull email and password
     const { email, password } = req.body;
 
     try {
-
         // Check email
         const user = await User.findOne({ email: email })
         if (!user) {
@@ -51,7 +50,7 @@ router.post('/',[
         jwt.sign({ 
             data: payload }, 
             tokenSecret,
-            { expiresIn: '1hr' },
+            { expiresIn: '3hr' },
             (err, token) => {
                 if (err) throw err ;
                 res.json({ token });
@@ -62,8 +61,6 @@ router.post('/',[
         res.status(500).send('Server Error')
     };
 });
-
-
 
 
 module.exports = router;
