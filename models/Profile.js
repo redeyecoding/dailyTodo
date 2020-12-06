@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema
+const Schema = mongoose.Schema;
 
 const ProfileSchema = Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Users'
+        ref: 'User'
     },
     name: {
         type: String,
@@ -13,8 +13,11 @@ const ProfileSchema = Schema({
     bio: {
         type: String
     },
+    avatar: {
+        type: String
+    },
     date: {
-        type: String,
+        type: Date,
         default: Date.now()
     }
 });
