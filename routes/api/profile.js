@@ -3,6 +3,8 @@ const router = express.Router();
 const auth = require('../../authMiddleware/auth');
 const { check, validationResult } = require('express-validator');
 const { TokenExpiredError } = require('jsonwebtoken');
+const User = require('../../models/Profile');
+const { findById } = require('../../models/Profile');
 
 
 // GET /api/profile
@@ -41,8 +43,22 @@ check('name', 'Your name is required')
         return res.status(400).json({ errors: errors.array() });
     };
 
-    
-    res.send(req.user)
+    try {    // Validate user's ID
+        const user = await User.findOne({ _id: req.params.id });
+        console.log(user)
+        if (!user) {
+            return res.status(400).json({ msg: 'Unauthorized'})
+        };
+
+        console.log(user)
+        res.send(req.user)
+
+    } catch(err) {
+        if (err.kind === 'ObjectId') {
+            console.error(err.message);
+            res.status(500).send('Server Error');
+        };
+    }
 });
 
 
