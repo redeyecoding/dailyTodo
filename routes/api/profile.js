@@ -6,17 +6,24 @@ const { TokenExpiredError } = require('jsonwebtoken');
 const Profile = require('../../models/Profile');
 const User = require('../../models/Users');
 
+
+
 // GET /api/profile
 // get all user profies
 // @access Public
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
+    try {
+        const allProfiles = await Profile.find({});
+        if (!allProfiles) {
+            return res.status(400).json({ msg: 'Not profiles exists' });
+        };
 
-
-    res.send('PROFILE ROUTE')
+        res.json(allProfiles)
+    } catch (err) {
+        console.err(err.message);
+        res.status(500).send('Server Error');
+    }
 });
-
-
-
 
 
 // GET /api/profile/user/:id
@@ -24,19 +31,19 @@ router.get('/', (req, res) => {
 // @access Private
 router.get('/user/:id', auth, async(req, res) => {
     try {    // Validate user's ID
-    const profile = await Profile.findOne({ id: req.params.id });
+    const profile = await Profile.findOne({ user: req.params.id });
     
     if (!profile) {
         return res.status(400).json({ msg: 'No profile for that user'});
     };
 
-
-} catch(err) {
-    if (err.kind === 'ObjectId') {
-        console.error(err.message);
-        res.status(500).send('Server Error');
+    res.json(profile);
+    } catch(err) {
+        if (err.kind === 'ObjectId') {
+            console.error(err.message);
+            res.status(500).send('Server Error');
+        };
     };
-}
 
 });
 
@@ -44,7 +51,7 @@ router.get('/user/:id', auth, async(req, res) => {
 
 
 // POST /api/profile/user/:id 
-// Create user profile
+// Create and or Update user profile
 // @access Private
 router.post('/user/:id', [auth,
 check('name', 'Your name is required')
@@ -67,7 +74,7 @@ check('name', 'Your name is required')
         } = req.body;
 
         // update existing profile
-        if (profile) {
+        if (profile && req.params.id === req.user.id) {
             profile = await Profile.findOneAndUpdate(
                 req.user.id, 
                 { $set: { 
@@ -77,7 +84,9 @@ check('name', 'Your name is required')
                     date: Date.now() } },
                 {new: true})
             return res.json(profile);
-        };
+        } else {
+            return res.status(401).json({ msg: 'Unauthorized'})
+        }
 
         // Create new Profile
         profile = new Profile({
@@ -86,8 +95,6 @@ check('name', 'Your name is required')
             user: req.user.id,
             avatar: user.avatar
         });
-
-        
 
         profile.save();
         res.json(profile);
@@ -107,7 +114,7 @@ check('name', 'Your name is required')
 // DELETE /api/profile/user/id
 // Delete user profile
 // @access Private
-router.post('/', (req, res) => {
+router.delete('/', (req, res) => {
     res.send('PROFILE ROUTE')
 });
 
