@@ -71,10 +71,6 @@ check('name', 'Your name is required')
             return res.status(400).json({ msg: 'There is already a profile for this user' });
         };
 
-        if (req.user.id !== req.params.id) {
-            return res.status(401).json({ msg: 'Unauthorized' });
-        };
-
         const {
             name,
             bio
@@ -128,15 +124,15 @@ router.put('/user/my-profile/:id', [auth,
             } = req.body;
     
             // Deny updating other user profiles.
-            if (req.params.id !== req.user.id ) {
+            if (req.params.id.toString() !== req.user.id.toString() ) {
                 return res.status(401).json({ msg: 'Unauthorized' });
             };
            
     
             // Update existing profile
-            if (profile && ( req.params.id === req.user.id )) {
+            if (profile && ( req.params.id === req.user.id.toString() )) {
                 profile = await Profile.findOneAndUpdate(
-                    { user: req.user.id }, 
+                    { user: req.user.id.toString() }, 
                     { $set: { 
                         name: name, 
                         bio: bio, 
@@ -145,8 +141,7 @@ router.put('/user/my-profile/:id', [auth,
                     {new: true}, (err, response) => {
                         if (err) throw err;
                         res.json(response);
-                    });
-                
+                    });                
             };
         } catch(err) {
             if (err.kind === 'ObjectId') {
@@ -158,11 +153,31 @@ router.put('/user/my-profile/:id', [auth,
 
 
 
-// DELETE /api/profile/user/id
+// DELETE /api/profile/user/my-profile/:id
 // Delete user profile
 // @access Private
-router.delete('/', (req, res) => {
-    res.send('PROFILE ROUTE')
+router.delete('/user/my-profile/:id', auth, async(req, res) => {
+    try {
+        let profile = await Profile.findOne({ user: req.params.id });
+        if (!profile) {
+            return res.status(400).json({ msg: 'There is no profile for this user, one must be created' });
+        };
+
+        if ( req.user.id.toString() !== req.params.id.toString() ) {
+            return res.status(401).json({ msg: 'Unauthorized' });
+        };
+
+        await profile.deleteOne({ user: req.user.id.toString() },
+             (err, response) => {
+                 if (err) throw err;
+                 res.json({ msg: 'Profile deleted' });
+             });
+
+
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
 });
 
 
