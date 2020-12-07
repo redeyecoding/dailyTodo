@@ -178,7 +178,4 @@ router.delete('/user/my-profile/:id', auth, async(req, res) => {
     }
 });
 
-
-
-
 module.exports = router;
