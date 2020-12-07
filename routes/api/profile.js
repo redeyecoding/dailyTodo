@@ -50,10 +50,10 @@ router.get('/user/:id', auth, async(req, res) => {
 
 
 
-// POST /api/profile/user/:id 
-// Create and or Update user profile
+// POST /api/profile/user/my-profile/:id
+// Create User profile
 // @access Private
-router.post('/user/:id', [auth,
+router.post('/user/my-profile/:id', [auth,
 check('name', 'Your name is required')
     .not()
     .isEmpty()
@@ -63,30 +63,22 @@ check('name', 'Your name is required')
         return res.status(400).json({ errors: errors.array() });
     };
 
-
     try {    // Validate user's ID
-        let profile = await Profile.findOne({ user: req.params.id });
         const user = await User.findById(req.user.id).select('-password');
+        let profile = await Profile.findOne({ user: req.params.id });
+
+        if (profile) {
+            return res.status(400).json({ msg: 'There is already a profile for this user' });
+        };
+
+        if (req.user.id !== req.params.id) {
+            return res.status(401).json({ msg: 'Unauthorized' });
+        };
 
         const {
             name,
             bio
         } = req.body;
-
-        // update existing profile
-        if (profile && req.params.id === req.user.id) {
-            profile = await Profile.findOneAndUpdate(
-                req.user.id, 
-                { $set: { 
-                    name: name, 
-                    bio: bio, 
-                    avatar: user.avatar, 
-                    date: Date.now() } },
-                {new: true})
-            return res.json(profile);
-        } else {
-            return res.status(401).json({ msg: 'Unauthorized'})
-        }
 
         // Create new Profile
         profile = new Profile({
@@ -96,7 +88,7 @@ check('name', 'Your name is required')
             avatar: user.avatar
         });
 
-        profile.save();
+        await profile.save();
         res.json(profile);
 
     } catch(err) {
@@ -108,6 +100,61 @@ check('name', 'Your name is required')
 });
 
 
+
+// PUT /api/profile/user/my-profile/:id
+// Update user profile
+// @access Private
+router.put('/user/my-profile/:id', [auth,
+    check('name', 'Your name is required')
+        .not()
+        .isEmpty()
+    ], async(req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        };
+    
+        try {    // Validate user's ID
+            const user = await User.findById(req.user.id).select('-password');
+            let profile = await Profile.findOne({ user: req.params.id });
+
+            if (!profile) {
+                return res.status(400).json({ msg: 'There is no profile for this user, one must be created' });
+            };
+
+            const {
+                name,
+                bio
+            } = req.body;
+    
+            // Deny updating other user profiles.
+            if (req.params.id !== req.user.id ) {
+                return res.status(401).json({ msg: 'Unauthorized' });
+            };
+           
+    
+            // Update existing profile
+            if (profile && ( req.params.id === req.user.id )) {
+                profile = await Profile.findOneAndUpdate(
+                    { user: req.user.id }, 
+                    { $set: { 
+                        name: name, 
+                        bio: bio, 
+                        avatar: user.avatar, 
+                        date: Date.now() } },
+                    {new: true}, (err, response) => {
+                        if (err) throw err;
+                        res.json(response);
+                    });
+                
+            };
+        } catch(err) {
+            if (err.kind === 'ObjectId') {
+                console.error(err.message);
+                res.status(500).send('Server Error');
+            };
+        }
+    });
 
 
 
