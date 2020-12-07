@@ -172,8 +172,6 @@ router.delete('/user/my-profile/:id', auth, async(req, res) => {
                  if (err) throw err;
                  res.json({ msg: 'Profile deleted' });
              });
-
-
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error');
