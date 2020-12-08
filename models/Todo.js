@@ -6,6 +6,11 @@ const TodoSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user'
     },
+    listType: { 
+        type: String,
+        required: true,
+        default: 'personal'
+    },
     workTodo: [
         {
             taskName: {
@@ -20,7 +25,7 @@ const TodoSchema = new Schema({
                 type: String,
                 required: true
             },
-            comfirmed: {
+            completed: {
                 type: Boolean        
             }
         }
@@ -39,7 +44,7 @@ const TodoSchema = new Schema({
                 type: String,
                 required: true
             },
-            comfirmed: {
+            completed: {
                 type: Boolean        
             }
         }
