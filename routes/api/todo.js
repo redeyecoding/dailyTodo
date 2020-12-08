@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const auth = require('../../authMiddleware/auth');
 const { check, validationResult } = require('express-validator');
+const Todo = require('../../models/Todo');
 
 
 // GET api/todo-list/mylist
@@ -29,6 +30,9 @@ router.post('/user/mylist/:id', [auth,
         return res.status(400).json({ errors: errors.array() });
     };
 
+    // Check for Todo
+    // let todo = await Todo.findOne({ })
+
     
     const {
         taskName,
@@ -38,14 +42,21 @@ router.post('/user/mylist/:id', [auth,
     } = req.body;
 
     // Build TodoObject
-    const todoObject = {};
-    todoObject.user = req.user.id;
-    todoObject[listType] = {};
+    // const todoObject = {};
+    // todoObject.user = req.user.id;
+    // todoObject[listType] = {};
 
-    if (taskName) todoObject[listType].taskName = taskName;
-    if (task) todoObject[listType].task = task;
-    if (completed) todoObject[listType].completed = completed;
+    // if (taskName) todoObject[listType].taskName = taskName;
+    // if (task) todoObject[listType].task = task;
+    // if (completed) todoObject[listType].completed = completed;
 
+    //
+    todo = await Todo({
+        taskName: taskName,
+        task: task,
+        listType: listType,
+        completed: completed
+    })
     res.send(todoObject);
 });
 
