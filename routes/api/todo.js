@@ -2,26 +2,31 @@ const express = require('express');
 const router = express.Router();
 const auth = require('../../authMiddleware/auth');
 const { check, validationResult } = require('express-validator');
-const Todo = require('../../models/Todo');
+const TodoContainer = require('../../models/TodoContainer');
+const TodoData = require('../../models/TodoData');
 
 
-// GET api/todo-list/mylist
+
+// GET api/todo-list/my-list
 // @desc Get all available lists for user
 // @access private
-router.get('/user/mylist/:id', auth, async (req, res) => {
+router.get('/user/my-list/:id', auth, async (req, res) => {
 
     res.send('TODOLIST ROUTE')
 });
 
 
-// POST api/todo-list/mylist
+// POST api/todo-list/my-list
 // @desc Create a new todolist
 // @access private
-router.post('/user/mylist/:id', [auth,
+router.post('/user/my-list/:id', [auth,
     check('taskName', 'A task name is required')
         .not()
         .isEmpty(),
     check('listType', 'ListType is required')
+        .not()
+        .isEmpty(),
+    check('task', 'Task is required')
         .not()
         .isEmpty()
 ], async (req, res) => {
@@ -29,47 +34,68 @@ router.post('/user/mylist/:id', [auth,
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     };
-
-    // Check for Todo
-    // let todo = await Todo.findOne({ })
-
     
-    const {
-        taskName,
-        task,
-        completed,
-        listType
-    } = req.body;
+    try {
+        // check if user has a todo List setup.
+        let todo = await Todo.findOne({ user: req.params.id });
+        if (todo) {
+            return res.status(400).json({ msg: 'There is already a todo container created for this account.'});
+        };
+        
+        const {
+            taskName,
+            task,
+            completed,
+            listType
+        } = req.body;
 
-    // Build TodoObject
-    // const todoObject = {};
-    // todoObject.user = req.user.id;
-    // todoObject[listType] = {};
+        // Build todoObject
+        const todoObject = {};
+        todoObject.user = req.user.id;
 
-    // if (taskName) todoObject[listType].taskName = taskName;
-    // if (task) todoObject[listType].task = task;
-    // if (completed) todoObject[listType].completed = completed;
+        todoObject.taskName = taskName || null;
+        todoObject.task = task || null;
+        todoObject.completed = completed || null;
+        todoObject.listType = listType || null;
 
-    //
-    todo = await Todo({
-        taskName: taskName,
-        task: task,
-        listType: listType,
-        completed: completed
-    })
-    res.send(todoObject);
+
+        todoObject.personalTodo = [];
+        todoObject.workTodo = [];  
+
+
+        // build todoType Object
+        const todoType = {};
+        todoType.personalTodo = [];
+        todoType.workTodo = [];
+
+        if ( listType === 'personal' ) {
+            todoType.personalTodo.push( todoObject );
+        };
+        todoType.workTodo.push( todoObject );  
+
+
+        // await todo.save();
+        res.json(todoObject);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+
 });
 
 
-// PUT api/todo-list/mylist
+// PUT api/todo-list/user/my-list
 // @desc Update exisiting TodoList
 // @access private
-router.put('/', (req, res) => {
+router.put('/user/my-list/:id', auth, async (req, res) => {
+    // check if there is a todo list for the user
+
+
     res.send('TODOLIST ROUTE')
 });
 
 
-// DELETE api/todo-list/mylist
+// DELETE api/todo-list/my-list
 // @desc Delete TodoList Entry
 // @access private
 router.delete('/', (req, res) => {
@@ -77,7 +103,7 @@ router.delete('/', (req, res) => {
 });
 
 
-// DELETE api/todo-list/mylist
+// DELETE api/todo-list/my-list
 // @desc Delete TodoList Entry
 // @access private
 router.delete('/', (req, res) => {
