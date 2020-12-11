@@ -11,44 +11,26 @@ const TodoSchema = new Schema({
         required: true,
         default: 'personal'
     },
-    workTodo: [
-        {
-            taskName: {
-                type: String,
-                required: true
-            },
-            date: {
-                type: Date,
-                default: Date.now()
-            },
-            task: {
-                type: String,
-                required: true
-            },
-            completed: {
-                type: Boolean        
-            }
+    workTodo: [],
+    personalTodo: [],
+    todoData:  {
+        taskName: {
+            type: String,
+            required: true
+        },
+        date: {
+            type: Date,
+            default: Date.now()
+        },
+        task: {
+            type: String,
+            required: true
+        },
+        completed: {
+            type: Boolean,
+            default: false       
         }
-    ],
-    personalTodo: [
-        {
-            taskName: {
-                type: String,
-                required: true
-            },
-            date: {
-                type: Date,
-                default: Date.now()
-            },
-            task: {
-                type: String,
-                required: true
-            },
-            completed: {
-                type: Boolean        
-            }
-        }
-    ],
+    },
     date: {
         type: Date,
         default: Date.now()
