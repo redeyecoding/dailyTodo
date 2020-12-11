@@ -37,11 +37,12 @@ router.post('/user/my-list/:id', [auth,
     
     try {
         // check if user has a todo List setup.
-        let todo = await Todo.findOne({ user: req.params.id });
+        let todo = await TodoContainer.findOne({ user: req.params.id });
         if (todo) {
             return res.status(400).json({ msg: 'There is already a todo container created for this account.'});
         };
-        
+
+       
         const {
             taskName,
             task,
@@ -49,33 +50,31 @@ router.post('/user/my-list/:id', [auth,
             listType
         } = req.body;
 
-        // Build todoObject
-        const todoObject = {};
-        todoObject.user = req.user.id;
-
-        todoObject.taskName = taskName || null;
-        todoObject.task = task || null;
-        todoObject.completed = completed || null;
-        todoObject.listType = listType || null;
+        let todoUserData = new TodoData({
+            taskName,
+            task,
+            completed,
+            user: req.user.id
+        });        
 
 
-        todoObject.personalTodo = [];
-        todoObject.workTodo = [];  
+        todo = new TodoContainer({
+            listType,
+            user: req.user.id
+        })
 
-
-        // build todoType Object
-        const todoType = {};
-        todoType.personalTodo = [];
-        todoType.workTodo = [];
 
         if ( listType === 'personal' ) {
-            todoType.personalTodo.push( todoObject );
+            todo.personalTodo.push( todoUserData );
         };
-        todoType.workTodo.push( todoObject );  
+        todo.workTodo.push( todoUserData );  
 
+        let todoData = await TodoData.findOne({ user: req.params.id });
+        if (!todoData) await todoUserData.save();
+        
+        await todo.save();
 
-        // await todo.save();
-        res.json(todoObject);
+        res.json(todo);
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error');
