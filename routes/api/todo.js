@@ -41,7 +41,6 @@ router.post('/user/my-list/:id', [auth,
         if (todo) {
             return res.status(400).json({ msg: 'There is already a todo container created for this account.'});
         };
-
        
         const {
             taskName,
@@ -49,6 +48,7 @@ router.post('/user/my-list/:id', [auth,
             completed,
             listType
         } = req.body;
+
 
         let todoUserData = new TodoData({
             taskName,
@@ -71,7 +71,7 @@ router.post('/user/my-list/:id', [auth,
 
         let todoData = await TodoData.findOne({ user: req.params.id });
         if (!todoData) await todoUserData.save();
-        
+
         await todo.save();
 
         res.json(todo);
