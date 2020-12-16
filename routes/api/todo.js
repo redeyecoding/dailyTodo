@@ -123,15 +123,17 @@ router.put('/user/my-list/:id',[auth,
             completed,
             taskId          
         } = req.body;
-    
+        
+        console.log(taskId.to)
         // get list of Task ID and put them into a list
-        const listOfUserTodos = todo[0][listType].map(tdo => tdo._id)
-    
-        console.log(listOfUserTodos)
+        // ["5fd30249c6a678d5e691a14a", "5dfsdfc6a678d5e691a14a", "e4d30249c6a678d5e691a14a"]
+        const listOfUserTodos = todo[0][listType].map(tdo => tdo._id);
+        const idIndex = listOfUserTodos.findIndex(id => id === taskId )
+        console.log(idIndex)
         // get the index for the object that matches the ID
     
         // copy and update the object to them be pushed back out to the server.
-    
+        res.json(listOfUserTodos)
     } catch(err) {
         console.error(err.message);
         res.status(500).send('Server Error');
@@ -146,7 +148,7 @@ router.put('/user/my-list/:id',[auth,
 router.delete('/todo-list/my-list/:id', auth, async (req, res) => {
     // Code for deleting the entire todo list ( 
      //   Both personal and work todos
-    )
+  
     res.send('DELETED TODOLIST' );
 });
 
