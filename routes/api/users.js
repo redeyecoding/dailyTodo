@@ -55,7 +55,7 @@ router.post('/', [
             // Setup User Avatar
             const avatar = gravatar.url(
                 email,
-                 {s: '100', r: 'pg', d: 'retro'});13
+                 {s: '100', r: 'pg', d: 'retro'});
             
             user.avatar = avatar;
            
