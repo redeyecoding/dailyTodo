@@ -11,8 +11,23 @@ const TodoData = require('../../models/TodoData');
 // @desc Get all available lists for user
 // @access private
 router.get('/user/my-list/:id', auth, async (req, res) => {
+    try {
+         const todo = await TodoContainer.find({ user: req.params.id })
+         if (!todo) {
+             res.status(400).json({ msg: 'No todo lists available for this user '});
+         };
 
-    res.send('TODOLIST ROUTE')
+         // Prevent logged in user from accessing someone elses todo list
+         if (todo[0].user.toString() !== req.user.id) {
+             return res.status(401).json({ msg: 'Not Authorized '});
+         };
+         
+         res.json(todo[0]);
+
+    } catch (err) {        
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    };    
 });
 
 
@@ -84,13 +99,44 @@ router.post('/user/my-list/:id', [auth,
 
 
 // PUT api/todo-list/user/my-list
-// @desc Update exisiting TodoList
+// @desc Update exisiting TodoList ( SaveButton in UI )
 // @access private
-router.put('/user/my-list/:id', auth, async (req, res) => {
-    // check if there is a todo list for the user
+router.put('/user/my-list/:id',[auth,
+    check('listType', 'ListType is required')
+        .not()
+        .isEmpty(),
+    check('task', 'Task is required')
+        .not()
+        .isEmpty()
+], async (req, res) => {
+    try {
+        const todo = await TodoContainer.find({ user: req.params.id });
 
+        if (!todo) {
+            res.status(400).json({ msg: 'No todo lists available for this user '});
+        };
+    
+        const {
+            listType,
+            taskName,
+            task,
+            completed,
+            taskId          
+        } = req.body;
+    
+        // get list of Task ID and put them into a list
+        const listOfUserTodos = todo[0][listType].map(tdo => tdo._id)
+    
+        console.log(listOfUserTodos)
+        // get the index for the object that matches the ID
+    
+        // copy and update the object to them be pushed back out to the server.
+    
+    } catch(err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
 
-    res.send('TODOLIST ROUTE')
 });
 
 
