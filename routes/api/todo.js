@@ -143,15 +143,20 @@ router.put('/user/my-list/:id',[auth,
 // DELETE api/todo-list/my-list
 // @desc Delete TodoList Entry
 // @access private
-router.delete('/', (req, res) => {
-    res.send('TODOLIST ROUTE')
+router.delete('/todo-list/my-list/:id', auth, async (req, res) => {
+    // Code for deleting the entire todo list ( 
+     //   Both personal and work todos
+    )
+    res.send('DELETED TODOLIST' );
 });
 
 
 // DELETE api/todo-list/my-list
-// @desc Delete TodoList Entry
+// @desc Empty and existing list ( not delete )
 // @access private
-router.delete('/', (req, res) => {
+router.put('/', (req, res) => {
+    // This route will not delete the list, but
+    // will delete the contents inside of the list.
     res.send('TODOLIST ROUTE')
 });
 
