@@ -19,4 +19,4 @@ const TodoContainerSchema = new Schema({
     }
 });
 
-module.exports = Todo = mongoose.model('todo', TodoSchema);
+module.exports = Todo = mongoose.model('todo', TodoContainerSchema);
