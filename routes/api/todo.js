@@ -66,7 +66,7 @@ router.post('/user/my-list/:id', [auth,
         } = req.body;
 
 
-        let todoUserData = new TodoData({
+        let newTodoList = new TodoData({
             taskName,
             task,
             completed,
@@ -75,18 +75,17 @@ router.post('/user/my-list/:id', [auth,
 
 
         todo = new TodoContainer({
-            listType,
+            listType: listType,
             user: req.user.id
-        })
-
+        });
 
         if ( listType === 'personal' ) {
-            todo.personalTodo.push( todoUserData );
+            tdodo.personal.push( newTodoList );
         };
-        todo.workTodo.push( todoUserData );  
+        todo.work.push( newTodoList );  
 
         let todoData = await TodoData.findOne({ user: req.params.id });
-        if (!todoData) await todoUserData.save();
+        if (!todoData) await newTodoList.save();
 
         await todo.save();
 
@@ -102,7 +101,7 @@ router.post('/user/my-list/:id', [auth,
 // PUT api/todo-list/user/my-list
 // @desc Update exisiting TodoList ( SaveButton in UI )
 // @access private
-router.put('/user/my-list/:id',[auth,
+router.put('/user/my-list/update/:id',[auth,
     check('listType', 'ListType is required')
         .not()
         .isEmpty(),
@@ -111,8 +110,7 @@ router.put('/user/my-list/:id',[auth,
         .isEmpty()
 ], async (req, res) => {
     try {
-        let todo = await TodoContainer.find({ user: req.params.id });
-
+        let todo = await TodoContainer.findOne({ user: req.params.id });
         if (!todo) {
             res.status(400).json({ msg: 'No todo lists available for this user '});
         };
@@ -125,30 +123,21 @@ router.put('/user/my-list/:id',[auth,
             taskId          
         } = req.body;
         
-        
-        const listOfUserTodos = todo[0][listType].map(tdo => tdo._id);
+        const listOfUserTodos = todo[listType].map(tdo => tdo._id);
         const idIndex = listOfUserTodos.findIndex( id => id.toString() === taskId);
         
         
         const updatedTask = {
-            ...todo[0][listType][idIndex],
+            ...todo[listType][idIndex],
             taskName,
             task,
             completed
         };
 
-        todo[0][listType][idIndex] = updatedTask;
+        todo[listType][idIndex] = updatedTask;
 
-        const updatedListType = todo[0][listType];
-        const updatedTodo = {
-            ...todo,
-            // [listType]: updatedListType
-        };        
-
-       
-        res.json(updatedTodo);
-
-
+        await todo.save();
+        res.json(todo);
 
     } catch(err) {
         console.error(err.message);
@@ -158,14 +147,46 @@ router.put('/user/my-list/:id',[auth,
 });
 
 
-// DELETE api/todo-list/my-list
-// @desc Delete TodoList Entry
+// PUT api/todo-list/my-list
+// @desc Add another Todo to list
 // @access private
-router.delete('/todo-list/my-list/:id', auth, async (req, res) => {
-    // Code for deleting the entire todo list ( 
-     //   Both personal and work todos
+router.put('/user/my-list/:id', auth, async (req, res) => {
+    try {
+        let todo = await TodoContainer.findOne({ user: req.params.id });
+        if (!todo) {
+            res.status(400).json({ msg: 'No todo lists available for this user '});
+        };
+
+        const {
+            taskName,
+            listType,
+            task,
+            completed,
+        } = req.body;
+
+        const newTodo = new TodoContainer({
+            taskName: taskName,
+            completed: completed,
+            task: task,
+            listType: listType
+        });
+
+        const todoType = [listType].join('');
+        console.log(newTodo)
+        // newTodo[listType].push(newTodo);
+        res.json(todo);
+
+        
+
+
+
+    
+    } catch(err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
   
-    res.send('DELETED TODOLIST' );
+    
 });
 
 
