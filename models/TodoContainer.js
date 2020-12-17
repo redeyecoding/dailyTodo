@@ -9,10 +9,10 @@ const TodoContainerSchema = new Schema({
     listType: { 
         type: String,
         required: true,
-        default: 'personal'
+        default: 'personal' // ( work || personal )
     },
-    workTodo: [],
-    personalTodo: [],
+    work: [],
+    personal: [],
     date: {
         type: Date,
         default: Date.now()
