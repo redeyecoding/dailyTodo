@@ -129,6 +129,7 @@ router.put('/user/my-list/:id',[auth,
         const listOfUserTodos = todo[0][listType].map(tdo => tdo._id);
         const idIndex = listOfUserTodos.findIndex( id => id.toString() === taskId);
         
+        
         const updatedTask = {
             ...todo[0][listType][idIndex],
             taskName,
@@ -136,14 +137,16 @@ router.put('/user/my-list/:id',[auth,
             completed
         };
 
+        todo[0][listType][idIndex] = updatedTask;
 
-        // todo = {
-        //     ...todo,
-        //     [listType]: updatedTodo
-        // };        
+        const updatedListType = todo[0][listType];
+        const updatedTodo = {
+            ...todo,
+            // [listType]: updatedListType
+        };        
 
        
-        res.json(updatedTask);
+        res.json(updatedTodo);
 
 
 
