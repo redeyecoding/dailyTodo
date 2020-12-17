@@ -4,6 +4,7 @@ const auth = require('../../authMiddleware/auth');
 const { check, validationResult } = require('express-validator');
 const TodoContainer = require('../../models/TodoContainer');
 const TodoData = require('../../models/TodoData');
+const { update } = require('../../models/TodoContainer');
 
 
 
@@ -110,7 +111,7 @@ router.put('/user/my-list/:id',[auth,
         .isEmpty()
 ], async (req, res) => {
     try {
-        const todo = await TodoContainer.find({ user: req.params.id });
+        let todo = await TodoContainer.find({ user: req.params.id });
 
         if (!todo) {
             res.status(400).json({ msg: 'No todo lists available for this user '});
@@ -124,16 +125,28 @@ router.put('/user/my-list/:id',[auth,
             taskId          
         } = req.body;
         
-        console.log(taskId.to)
-        // get list of Task ID and put them into a list
-        // ["5fd30249c6a678d5e691a14a", "5dfsdfc6a678d5e691a14a", "e4d30249c6a678d5e691a14a"]
+        
         const listOfUserTodos = todo[0][listType].map(tdo => tdo._id);
-        const idIndex = listOfUserTodos.findIndex(id => id === taskId )
-        console.log(idIndex)
-        // get the index for the object that matches the ID
-    
-        // copy and update the object to them be pushed back out to the server.
-        res.json(listOfUserTodos)
+        const idIndex = listOfUserTodos.findIndex( id => id.toString() === taskId);
+        
+        const updatedTask = {
+            ...todo[0][listType][idIndex],
+            taskName,
+            task,
+            completed
+        };
+
+
+        // todo = {
+        //     ...todo,
+        //     [listType]: updatedTodo
+        // };        
+
+       
+        res.json(updatedTask);
+
+
+
     } catch(err) {
         console.error(err.message);
         res.status(500).send('Server Error');
