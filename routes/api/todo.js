@@ -5,7 +5,7 @@ const { check, validationResult } = require('express-validator');
 const TodoContainer = require('../../models/TodoContainer');
 const TodoData = require('../../models/TodoData');
 const { update } = require('../../models/TodoContainer');
-
+const  verifyUser = require('./utils');
 
 
 // GET api/todo-list/my-list
@@ -13,18 +13,17 @@ const { update } = require('../../models/TodoContainer');
 // @access private
 router.get('/user/my-list/:id', auth, async (req, res) => {
     try {
-         const todo = await TodoContainer.find({ user: req.params.id })
+         const todo = await TodoContainer.findOne({ user: req.params.id })
          if (!todo) {
              res.status(400).json({ msg: 'No todo lists available for this user '});
          };
 
-         // Prevent logged in user from accessing someone elses todo list
-         if (todo[0].user.toString() !== req.user.id) {
-             return res.status(401).json({ msg: 'Not Authorized '});
-         };
-         
-         res.json(todo[0]);
+        // Prevent logged in user from accessing someone elses todo list
+        if (todo.user.toString() !== req.user.id ||  req.user.id !== req.params.id ) {
+            return res.status(401).json({ msg: 'Not Authorized' });
+        };
 
+         res.json(todo);
     } catch (err) {        
         console.error(err.message);
         res.status(500).send('Server Error');
@@ -57,7 +56,7 @@ router.post('/user/my-list/:id', [auth,
         if (todo) {
             return res.status(400).json({ msg: 'There is already a todo container created for this account.'});
         };
-       
+
         const {
             taskName,
             task,
@@ -80,9 +79,10 @@ router.post('/user/my-list/:id', [auth,
         });
 
         if ( listType === 'personal' ) {
-            tdodo.personal.push( newTodoList );
+            todo.personal.push( newTodoList );
+        } else{
+            todo.work.push( newTodoList );  
         };
-        todo.work.push( newTodoList );  
 
         let todoData = await TodoData.findOne({ user: req.params.id });
         if (!todoData) await newTodoList.save();
@@ -114,6 +114,11 @@ router.put('/user/my-list/update/:id',[auth,
         if (!todo) {
             res.status(400).json({ msg: 'No todo lists available for this user '});
         };
+
+        // Prevent logged in user from accessing someone elses todo list
+        if (todo.user.toString() !== req.user.id || req.user.id !== req.params.id ) {
+            return res.status(401).json({ msg: 'Not Authorized' });
+        };
     
         const {
             listType,
@@ -133,11 +138,11 @@ router.put('/user/my-list/update/:id',[auth,
             task,
             completed
         };
-        const tst = `${listType}.$`;
+        const taskType = `${listType}.$`;
 
         await TodoContainer.findOneAndUpdate(
             { user: req.user.id, [ listType ]: currentObject },
-            { $set: { [ tst ]: updatedData } },
+            { $set: { [ taskType ]: updatedData } },
             { new: true },
             (error, response) => {
                 if (error) throw error;
@@ -162,6 +167,11 @@ router.put('/user/my-list/:id', auth, async (req, res) => {
             res.status(400).json({ msg: 'No todo lists available for this user '});
         };
 
+        // Prevent logged in user from accessing someone elses todo list
+        if (todo.user.toString() !== req.user.id || req.user.id !== req.params.id ) {
+        return res.status(401).json({ msg: 'Not Authorized' });
+        };
+
         const {
             taskName,
             listType,
@@ -169,29 +179,27 @@ router.put('/user/my-list/:id', auth, async (req, res) => {
             completed,
         } = req.body;
 
-        const newTodo = new TodoContainer({
+        //Build todo object
+        const newTodo = {
             taskName: taskName,
             completed: completed,
             task: task,
-            listType: listType
-        });
+            listType: listType 
+        };
 
-        const todoType = [listType].join('');
-        console.log(newTodo)
-        // newTodo[listType].push(newTodo);
-        res.json(todo);
-
-        
-
-
-
-    
+        await TodoContainer.findOneAndUpdate(
+            { user: req.user.id },
+            { $push: { [ listType ]: newTodo } },
+            { new: true },
+            (error, response) => {
+                if (error) throw error;
+                res.json(response);
+            }
+         );  
     } catch(err) {
         console.error(err.message);
         res.status(500).send('Server Error');
     }
-  
-    
 });
 
 
