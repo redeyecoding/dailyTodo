@@ -124,33 +124,31 @@ router.put('/user/my-list/update/:id',[auth,
         } = req.body;
 
         const listOfUserTodos = todo[listType].map(tdo => tdo._id);
-        const idIndex = listOfUserTodos.findIndex( id => id.toString() === taskId);        
-        
+        const idIndex = listOfUserTodos.findIndex( id => id.toString() === taskId);
+
+        const currentObject = todo[listType][idIndex];
         const updatedData= {
             ...todo[listType][idIndex],
             taskName,
             task,
             completed
         };
+        const tst = `${listType}.$`;
 
-        let updatedTaskList = [ ...todo[listType] ];
-        updatedTaskList[idIndex] = updatedData;        
-        
-        todo = new TodoContainer({
-            ...todo,
-            listType,
-            [listType]: updatedTaskList
-         
-        });
-        console.log(updatedTaskList)
-        await todo.save();
-        res.json(todo);
+        await TodoContainer.findOneAndUpdate(
+            { user: req.user.id, [ listType ]: currentObject },
+            { $set: { [ tst ]: updatedData } },
+            { new: true },
+            (error, response) => {
+                if (error) throw error;
+                res.json(response);
+            }
+         );      
 
     } catch(err) {
         console.error(err.message);
         res.status(500).send('Server Error');
     }
-
 });
 
 
