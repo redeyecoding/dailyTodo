@@ -24,7 +24,6 @@ router.get('/user/my-list/:id', auth, async (req, res) => {
             return res.status(401).json({ msg: 'Not Authorized' });
         };
 
-
          res.json(todo);
     } catch (err) {        
         console.error(err.message);
@@ -159,7 +158,7 @@ router.put('/user/my-list/update/:id',[auth,
 });
 
 
-// PUT api/todo-list/my-list
+// PUT api/todo-list/my-list/:id
 // @desc Add another Todo to list
 // @access private
 router.put('/user/my-list/:id', auth, async (req, res) => {
@@ -249,7 +248,7 @@ router.put('/user/my-list/update/:id/:taskId', auth, async (req, res) => {
 // DELETE api/todo-list/user/my-list/update/:id/:taskId
 // @desc Delete Entire list
 // @access private
-router.put('/user/my-list/update/:id/:taskId', auth, async(req, res) => {
+router.put('/user/my-list/delete/:id/:taskId', auth, async(req, res) => {
 
 
     try {
