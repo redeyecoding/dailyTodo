@@ -18,10 +18,12 @@ router.get('/user/my-list/:id', auth, async (req, res) => {
              res.status(400).json({ msg: 'No todo lists available for this user '});
          };
 
+
         // Prevent logged in user from accessing someone elses todo list
         if (todo.user.toString() !== req.user.id ||  req.user.id !== req.params.id ) {
             return res.status(401).json({ msg: 'Not Authorized' });
         };
+        
 
          res.json(todo);
     } catch (err) {        
