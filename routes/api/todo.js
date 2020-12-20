@@ -23,7 +23,7 @@ router.get('/user/my-list/:id', auth, async (req, res) => {
         if (todo.user.toString() !== req.user.id ||  req.user.id !== req.params.id ) {
             return res.status(401).json({ msg: 'Not Authorized' });
         };
-        
+
 
          res.json(todo);
     } catch (err) {        
@@ -182,22 +182,19 @@ router.put('/user/my-list/:id', auth, async (req, res) => {
         } = req.body;
 
         //Build todo object
-        const newTodo = {
+        const newTodo = new TodoData({
             taskName: taskName,
             completed: completed,
             task: task,
-            listType: listType 
-        };
+            listType: listType,
+        });
 
         await TodoContainer.findOneAndUpdate(
             { user: req.user.id },
             { $push: { [ listType ]: newTodo } },
-            { new: true },
-            (error, response) => {
-                if (error) throw error;
-                res.json(response);
-            }
-         );  
+            { new: true }         );  
+        
+        res.json({ msg: 'Update Successful!'})
     } catch(err) {
         console.error(err.message);
         res.status(500).send('Server Error');
@@ -206,12 +203,46 @@ router.put('/user/my-list/:id', auth, async (req, res) => {
 
 
 // DELETE api/todo-list/my-list
-// @desc Empty and existing list ( not delete )
+// @desc Delete single task from user list.
 // @access private
-router.put('/', (req, res) => {
+router.put('/user/my-list/update/:id/:taskId', auth, async (req, res) => {
     // This route will not delete the list, but
     // will delete the contents inside of the list.
-    res.send('TODOLIST ROUTE')
+
+    const {
+        taskId,
+        listType
+    } = req.body;
+
+
+    try {
+         
+        await TodoContainer.findOneAndUpdate(
+            { user: req.params.id },
+            { $pull: { [ listType ]: { id: taskId } } },
+            { new: true },
+            { multi: true },
+            (error, data) => {
+                if (error) throw error;
+                console.log(data[listType]);                
+                res.json(data)
+        });
+
+        if (!todo) {
+            res.status(400).json({ msg: 'No todo lists available for this user '});
+        };       
+   
+        // Prevent logged in user from accessing someone elses todo list
+        if ( todo.user.toString() !== req.user.id || req.user.id !== req.params.id ) {
+            return res.status(401).json({ msg: 'Not Authorized' });
+        };
+
+    } catch (err) {
+        if (err.kind === 'ObjectId'){
+            console.error(err.message);
+            res.status(500).send('Server Error');
+        }
+    };
 });
 
 
