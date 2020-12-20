@@ -202,7 +202,7 @@ router.put('/user/my-list/:id', auth, async (req, res) => {
 });
 
 
-// DELETE api/todo-list/my-list
+// DELETE api/todo-list/user/my-list/update/:id/:taskId
 // @desc Delete single task from user list.
 // @access private
 router.put('/user/my-list/update/:id/:taskId', auth, async (req, res) => {
@@ -246,6 +246,18 @@ router.put('/user/my-list/update/:id/:taskId', auth, async (req, res) => {
 });
 
 
+// DELETE api/todo-list/user/my-list/update/:id/:taskId
+// @desc Delete Entire list
+// @access private
+router.put('/user/my-list/update/:id/:taskId', auth, async(req, res) => {
 
+
+    try {
+
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error'); 
+    };
+})
 
 module.exports = router;
