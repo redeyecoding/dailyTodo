@@ -245,11 +245,10 @@ router.put('/user/my-list/remove/:id', auth, async (req, res) => {
 // @access private
 router.put('/user/my-list/delete/:id/:taskId', auth, async(req, res) => {
     try {
-
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error'); 
     };
-})
+});
 
 module.exports = router;
