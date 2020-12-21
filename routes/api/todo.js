@@ -164,6 +164,7 @@ router.put('/user/my-list/update/:id',[auth,
 router.put('/user/my-list/:id', auth, async (req, res) => {
     try {
         let todo = await TodoContainer.findOne({ user: req.params.id });
+
         if (!todo) {
             res.status(400).json({ msg: 'No todo lists available for this user '});
         };
@@ -186,6 +187,7 @@ router.put('/user/my-list/:id', auth, async (req, res) => {
             completed: completed,
             task: task,
             listType: listType,
+            user: req.user.id
         });
 
         await TodoContainer.findOneAndUpdate(
@@ -201,13 +203,10 @@ router.put('/user/my-list/:id', auth, async (req, res) => {
 });
 
 
-// DELETE api/todo-list/user/my-list/update/:id/:taskId
+// PUT api/todo-list/user/my-list/update/:id/:taskId
 // @desc Delete single task from user list.
 // @access private
-router.put('/user/my-list/update/:id/:taskId', auth, async (req, res) => {
-    // This route will not delete the list, but
-    // will delete the contents inside of the list.
-
+router.put('/user/my-list/remove/:id', auth, async (req, res) => {
     const {
         taskId,
         listType
@@ -215,27 +214,22 @@ router.put('/user/my-list/update/:id/:taskId', auth, async (req, res) => {
 
 
     try {
-         
-        await TodoContainer.findOneAndUpdate(
-            { user: req.params.id },
-            { $pull: { [ listType ]: { id: taskId } } },
-            { new: true },
-            { multi: true },
-            (error, data) => {
-                if (error) throw error;
-                console.log(data[listType]);                
-                res.json(data)
-        });
+        const todo = await TodoContainer.findOne({ user: req.params.id })
 
-        if (!todo) {
-            res.status(400).json({ msg: 'No todo lists available for this user '});
-        };       
-   
         // Prevent logged in user from accessing someone elses todo list
         if ( todo.user.toString() !== req.user.id || req.user.id !== req.params.id ) {
             return res.status(401).json({ msg: 'Not Authorized' });
         };
 
+        const tId = todo[listType].findIndex(tsk => tsk._id.toString() === taskId);
+        const task = todo[listType][tId]
+
+        await TodoContainer.updateOne(
+            { user: req.params.id },
+            { $pull: { [ listType ]: { $in: [ task ] } } },
+            { new: true, multi: true }
+        );
+        res.status(200).send('Delete Successful');
     } catch (err) {
         if (err.kind === 'ObjectId'){
             console.error(err.message);
