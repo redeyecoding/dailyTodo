@@ -1,0 +1,10 @@
+.form_login-container {
+    position: relative;
+    top: 26rem;
+    max-width: 30%;
+    margin: 0 auto;
+}
+
+.form_login-Input {
+    margin: 1rem;
+}
