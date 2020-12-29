@@ -1,10 +1,16 @@
 .form_login-container {
     position: relative;
     top: 26rem;
-    max-width: 30%;
+    /* max-width: 30%; */
     margin: 0 auto;
+    display: inline-block;
+    /* overflow: auto; */
 }
 
-.form_login-Input {
-    margin: 1rem;
+.form_login--input {
+    margin: 2rem;
+}
+
+.form_login--labeling {
+    font-size: 2rem;
 }
