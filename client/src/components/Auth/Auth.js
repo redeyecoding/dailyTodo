@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Card from '../Layout/Card/Card';
 import Header from '../Layout/Header/Header';
 import './Auth.css';
-import Button from '../UI/Button/Button';
 
 
 const Auth = () => {
@@ -20,25 +19,29 @@ const Auth = () => {
                     <form className="form_login-form" onSubmit={ 'D'}> 
                     <span>PLEASE LOGIN</span>
                         <div className='form_login-Input'>
-                            <label class="form_login--labeling">Username</label>
+                            <label class="form_login--labeling line--up">Username</label>
                             <input 
-                                className="form_login--input"
+                                className="form_login--input line--up"
                                 placeholder='Email' 
                                 value={ userEmail }
                                 type='email' />
                         </div>
                         <div  className='form_login-Input'>
-                            <label className="form_login--labeling">Password</label>
+                            <label className="form_login--labeling line--up">Password</label>
                             <input 
-                                className="form_login--input"
+                                className="form_login--input line--up"
                                 onChange={ setUpLoginInformation }
                                 placeholder='Password' 
                                 value={ userEmail }
                                 type='password' />
                         </div>
-                        <Button 
-                            clicked={ () => '' }
-                            buttonType='submit'>SUBMIT</Button>
+                        <div className="form_login--submit">
+                            <button
+                                className="form_login--submit-btn"
+                                clicked={ () => '' }
+                                type='submit'>LOGIN</button>
+                        </div>
+
                     </form>
                 </Card>
             </section>    
