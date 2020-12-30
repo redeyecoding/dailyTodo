@@ -10,12 +10,18 @@
 .form_login--input {
     margin: 2rem;
     vertical-align: baseline;
+    height: 4rem;
+    width: 30rem;
+    border: 1px solid #bbbbbb;
+    border-radius: .5rem;
+    padding-left: 1rem;
+    /* font-family: inherit; */
 
 }
 
 .form_login--labeling {
     font-size: 2rem;
-    color:rgb(77, 73, 73)
+    color:#4d4949
     
 }
 
@@ -29,4 +35,9 @@
     border-radius: .5rem;
     color: #fff;
     /* font-weight: bold; */
+}
+
+
+.form_login-form_title {
+    color: #4d4949;
 }
