@@ -6,21 +6,26 @@ import './Auth.css';
 
 const Auth = () => {
     const [ userEmail, setUserEmail ] = useState('');
+    const [ userPassword, setUserPassword ] = useState('');
 
-    const setUpLoginInformation = () => {
-        setUserEmail(userEmail)
+    const setUserEmailHandler = event => {
+        setUserEmail(event)
+    }
+
+    const setUserPasswordHandler = event => {
+        setUserPassword(event)
     }
     return  (
         <>
-            <Header />
-            
+            <Header />            
             <section className='form_login-container'>
                 <Card>
                     <form className="form_login-form" onSubmit={ 'D'}> 
-                    <span>PLEASE LOGIN</span>
+                    <span className="form_login-form_title">PLEASE LOGIN</span>
                         <div className='form_login-Input'>
                             <label class="form_login--labeling line--up">Username</label>
                             <input 
+                                onChange={ event => setUserEmailHandler(event.target.value) }
                                 className="form_login--input line--up"
                                 placeholder='Email' 
                                 value={ userEmail }
@@ -30,9 +35,9 @@ const Auth = () => {
                             <label className="form_login--labeling line--up">Password</label>
                             <input 
                                 className="form_login--input line--up"
-                                onChange={ setUpLoginInformation }
+                                onChange={ event => setUserPasswordHandler(event.target.value) }
                                 placeholder='Password' 
-                                value={ userEmail }
+                                value={ userPassword }
                                 type='password' />
                         </div>
                         <div className="form_login--submit">
