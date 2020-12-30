@@ -6,7 +6,6 @@ import classes from './Header.css';
 const Header = () => {
     return (
         <div className='main-header'>
-            HEADER
             <Nav />            
         </div>
     )
