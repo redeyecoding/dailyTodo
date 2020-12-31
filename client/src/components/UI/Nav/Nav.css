@@ -2,9 +2,11 @@
     text-align: right;
     font-size: 2rem;
     font-weight: bold;
-    position: relative;
-    top: 70%;
     color:#fff;
+    display: inline-block;
+    position: relative;
+    top: 60%;
+    vertical-align: baseline;
 
 }
 
