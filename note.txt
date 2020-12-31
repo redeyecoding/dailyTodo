@@ -1,2 +1,10 @@
-Create a utilize that prevents logged in users from
-modifying another user's items
+things to do
+
+// complete login page
+-- setup toggle between login page and Register page
+--fix input boxes
+
+
+// fix Register page
+-- css etc..
+-- fix input boxes
