@@ -3,6 +3,7 @@ import Card from '../../Layout/Card/Card';
 import Header from '../../Layout/Header/Header';
 import './Login.css';
 import axios from 'axios';
+import Register from '../Register/Register';
 
 
 
