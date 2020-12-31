@@ -1,10 +1,25 @@
 import './App.css';
-import Auth from './components/Auth/Auth';
+import Login from './components/Auth/Login/Login';
+import { Route, Switch } from 'react-router-dom';
+import Profile from './components/Profile/Profile';
+import Lists from './components/Lists/Lists';
 
 function App() {
   return (
     <div className="App">
-      <Auth />
+      <Switch>
+        <Route exact path='/'>
+          <Login />
+        </Route>
+
+        <Route exact path='/profile'>
+          <Profile />
+        </Route>
+
+        <Route exact path='/my-lists'>
+          <Lists />
+        </Route>
+      </Switch>             
     </div>
   );
 }
