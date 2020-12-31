@@ -1,3 +1,8 @@
+.login-container {
+    height: 100%;
+}
+
+
 .form_login-container {
     position: relative;
     top: 26rem;
@@ -16,13 +21,15 @@
     border-radius: .5rem;
     padding-left: 1rem;
     /* font-family: inherit; */
+}
 
+.form_login--input:focus {
+   border: 2px solid #9a5adb;
 }
 
 .form_login--labeling {
     font-size: 2rem;
-    color:#4d4949
-    
+    color:#4d4949;    
 }
 
 .form_login--submit-btn {
@@ -41,3 +48,4 @@
 .form_login-form_title {
     color: #4d4949;
 }
+
