@@ -2,12 +2,14 @@ import React from 'react';
 import Nav from '../../UI/Nav/Nav';
 import Card from '../Card/Card';
 import classes from './Header.css';
+// import Logo from '../../Layout/Logo/Logo';
+
 
 const Header = () => {
     return (
-        <div className='main-header'>
+        <header className='main-header'>
             <Nav />            
-        </div>
+        </header>
     )
 };
 
