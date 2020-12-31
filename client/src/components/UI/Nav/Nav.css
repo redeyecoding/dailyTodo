@@ -1,19 +1,27 @@
 .head-main-menu {
-    text-align: right;
     font-size: 2rem;
     font-weight: bold;
     color:#fff;
     display: inline-block;
     position: relative;
     top: 60%;
-    vertical-align: baseline;
-
+    left: 30%;
+    vertical-align: middle;
+    margin: 3rem 1rem;
 }
+
+.head-main-menu_items {
+    text-align: right;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
 
 .head-main-menu_label {
+    margin: 0 2rem; 
     display: inline-block;
-    margin: 0 .5rem; 
-}
+} 
 
 
 .nav-link {
