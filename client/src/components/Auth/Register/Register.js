@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Card from '../../Layout/Card/Card';
 import Header from '../../Layout/Header/Header';
-import './Login.css';
+import './Register.css';
 import axios from 'axios';
+import Login from '../Login/Login';
 
 
 
@@ -15,11 +16,11 @@ const Register = () => {
         // build json object for logging in
         const loginObject = {};
         setUserEmail(event)
-    }
+    };
 
     const setUserPasswordHandler = event => {
         setUserPassword(event)
-    }
+    };
 
     const onSubmitHandler = async (event) => {
         event.preventDefault();
@@ -93,7 +94,7 @@ const Register = () => {
                             <div className="form_login--submit">
                                 <button
                                     className="form_login--submit-btn"
-                                    type='submit'>LOGIN</button>
+                                    type='submit'>SIGN UP</button>
                             </div>
                         </form>
                     </Card>
