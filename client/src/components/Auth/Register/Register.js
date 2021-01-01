@@ -1,20 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import Card from '../../Layout/Card/Card';
-import Header from '../../Layout/Header/Header';
-import './Register.css';
+import Card from '../../UI/Card/Card';
+import Header from '../../Header/Header';
+import '../Auth.css';
 import axios from 'axios';
 import Login from '../Login/Login';
 
 
-
 const Register = () => {
+    const [ userFirstName, setFirstName ] = useState('');
+    const [ userLastName, setLastName ] = useState('');
     const [ userEmail, setUserEmail ] = useState('');
     const [ userPassword, setUserPassword ] = useState('');
     const [ submitAction, setSubmitAction ] = useState(false);
 
+
+    const setFirstNameHandler = event => {
+        setFirstName(event)
+    };
+
+    const setLastNameHandler = event => {
+        setLastName(event)
+    };
+
     const setUserEmailHandler = event => {
-        // build json object for logging in
-        const loginObject = {};
         setUserEmail(event)
     };
 
@@ -26,6 +34,7 @@ const Register = () => {
         event.preventDefault();
 
         const userLogin = {
+            name: `${userFirstName} ${userLastName}`,
             email: userEmail,
             password: userPassword
         };
@@ -39,7 +48,7 @@ const Register = () => {
                 }
             };
 
-            const res = await axios.post('api/auth/', body, config)
+            const res = await axios.post('api/users', body, config)
             console.log(res.data)
         } catch (error) {
             console.log(error.response.data.errors)
@@ -55,25 +64,31 @@ const Register = () => {
                         <form className="form_login-form" onSubmit={ event => onSubmitHandler(event) }> 
                         <span className="form_login-form_title">SIGN UP</span>
                             <div  className='form_login-Input'>
-                                <label className="form_login--labeling line--up">First</label>
+                                <div class="form_login--label-container">
+                                    <label className="form_login--labeling line--up">First</label>
+                                </div>
                                 <input 
                                     className="form_login--input line--up"
-                                    onChange={ event => setUserPasswordHandler(event.target.value) }
+                                    onChange={ event => setFirstNameHandler(event.target.value) }
                                     placeholder='Firstname' 
-                                    value={ userPassword }
+                                    value={ userFirstName }
                                     type='text' />
                             </div>
                             <div  className='form_login-Input'>
-                                <label className="form_login--labeling line--up">Last</label>
+                                <div class="form_login--label-container">
+                                    <label className="form_login--labeling line--up">Last</label>
+                                </div>
                                 <input 
                                     className="form_login--input line--up"
-                                    onChange={ event => setUserPasswordHandler(event.target.value) }
+                                    onChange={ event => setLastNameHandler(event.target.value) }
                                     placeholder='Lastname' 
-                                    value={ userPassword }
+                                    value={ userLastName }
                                     type='text' />
                             </div>
                             <div className='form_login-Input'>
-                                <label class="form_login--labeling line--up">Username</label>
+                                <div class="form_login--label-container">
+                                    <label class="form_login--labeling line--up">Username</label>
+                                </div>
                                 <input 
                                     onChange={ event => setUserEmailHandler(event.target.value) }
                                     className="form_login--input line--up"
@@ -82,7 +97,9 @@ const Register = () => {
                                     type='email' />
                             </div>
                             <div  className='form_login-Input'>
-                                <label className="form_login--labeling line--up">Password</label>
+                                <div class="form_login--label-container">
+                                    <label className="form_login--labeling line--up">Password</label>
+                                </div>
                                 <input 
                                     className="form_login--input line--up"
                                     onChange={ event => setUserPasswordHandler(event.target.value) }
