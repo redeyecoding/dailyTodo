@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import Card from '../../Layout/Card/Card';
-import Header from '../../Layout/Header/Header';
-import './Login.css';
+import Card from '../../UI/Card/Card';
+import Header from '../../Header/Header';
+import '../Auth.css';
 import axios from 'axios';
 import Register from '../Register/Register';
 
@@ -48,14 +48,17 @@ const Login = () => {
     };
     return  (
         <>
-            <Header /> 
+            <Register />
+            {/* <Header /> 
             <main className="login-container">
                 <section className='form_login-container'>
                     <Card>
                         <form className="form_login-form" onSubmit={ event => onSubmitHandler(event) }> 
                         <span className="form_login-form_title">PLEASE LOGIN</span>
                             <div className='form_login-Input'>
-                                <label class="form_login--labeling line--up">Username</label>
+                                <div class="form_login--label-container">
+                                    <label class="form_login--labeling line--up">Username</label>
+                                </div>
                                 <input 
                                     onChange={ event => setUserEmailHandler(event.target.value) }
                                     className="form_login--input line--up"
@@ -64,7 +67,10 @@ const Login = () => {
                                     type='email' />
                             </div>
                             <div  className='form_login-Input'>
-                                <label className="form_login--labeling line--up">Password</label>
+                                <div class="form_login--label-container">
+                                    <label className="form_login--labeling line--up">Password</label>
+                                </div>
+                                
                                 <input 
                                     className="form_login--input line--up"
                                     onChange={ event => setUserPasswordHandler(event.target.value) }
@@ -77,11 +83,10 @@ const Login = () => {
                                     className="form_login--submit-btn"
                                     type='submit'>LOGIN</button>
                             </div>
-                            <div className='form_login--register__login'>Don't have an account?</div>
                         </form>
                     </Card>
                 </section>                
-            </main>
+            </main> */}
         </>
     )
 };
