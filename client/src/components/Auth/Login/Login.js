@@ -48,8 +48,7 @@ const Login = () => {
     };
     return  (
         <>
-            <Register />
-            {/* <Header /> 
+            <Header /> 
             <main className="login-container">
                 <section className='form_login-container'>
                     <Card>
@@ -86,7 +85,7 @@ const Login = () => {
                         </form>
                     </Card>
                 </section>                
-            </main> */}
+            </main>
         </>
     )
 };
