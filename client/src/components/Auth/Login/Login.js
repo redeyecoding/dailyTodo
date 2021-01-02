@@ -7,7 +7,7 @@ import Register from '../Register/Register';
 
 
 
-const Login = () => {
+const Login = props => {
     const [ userEmail, setUserEmail ] = useState('');
     const [ userPassword, setUserPassword ] = useState('');
     const [ submitAction, setSubmitAction ] = useState(false);
@@ -82,6 +82,11 @@ const Login = () => {
                                     className="form_login--submit-btn"
                                     type='submit'>LOGIN</button>
                             </div>
+                            <div 
+                                onClick={ props.toggleForm }
+                                className="form_login--register__login">
+                                Don't Have an account?
+                            </div> 
                         </form>
                     </Card>
                 </section>                
