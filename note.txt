@@ -1,10 +1,3 @@
 things to do
 
-// complete login page
--- setup toggle between login page and Register page
---fix input boxes
-
-
-// fix Register page
--- css etc..
--- fix input boxes
+// Build code for Login Header and Registeration Header
