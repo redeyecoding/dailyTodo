@@ -6,7 +6,7 @@ import axios from 'axios';
 import Login from '../Login/Login';
 
 
-const Register = () => {
+const Register = props => {
     const [ userFirstName, setFirstName ] = useState('');
     const [ userLastName, setLastName ] = useState('');
     const [ userEmail, setUserEmail ] = useState('');
@@ -113,6 +113,11 @@ const Register = () => {
                                     className="form_login--submit-btn"
                                     type='submit'>SIGN UP</button>
                             </div>
+                            <div 
+                                onClick={ props.toggleForm }
+                                className="form_login--register__login">
+                                Don't Have an account?
+                            </div> 
                         </form>
                     </Card>
                 </section>                
