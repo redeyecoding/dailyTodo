@@ -1,21 +1,31 @@
-import { useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import Login from './Login/Login';
 import Register from './Register/Register';
+import './Auth.css';
 
 const Auth = () => {
-    const [ toggler, setToggler ] = useRef({ toggle: false });
+    const [ toggleState, setToggleState ] = useState(false);
 
     const formToggleHandler = () => {
-        console.log(toggler)
-    }
-    return (
+        setToggleState(!toggleState)
+    };
 
-        <div 
-            onClick={ formToggleHandler }
-            className='form_login--register__login'>
-            { toggler && "Already have an account?" }
-        </div>
-    )
-};
+    let loadForm = null;
+    if ( toggleState ) {
+        loadForm =  <Login />
+
+    };
+
+    loadForm = <Register />
+
+    return (
+        <>
+            { toggleState &&  <Register toggleForm={ formToggleHandler } />  }
+            <Login toggleForm={ formToggleHandler } />
+        </>
+        
+   )
+}
 
 export default Auth;
+
