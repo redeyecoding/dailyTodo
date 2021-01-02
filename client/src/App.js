@@ -10,6 +10,7 @@ import Layout from './components/Layout/Layout';
 function App() {
   return (
     <div className="App">
+      <Layout />
       <Switch>
         <Route exact path='/'>
           <Login />
