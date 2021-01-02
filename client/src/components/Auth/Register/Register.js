@@ -116,7 +116,7 @@ const Register = props => {
                             <div 
                                 onClick={ props.toggleForm }
                                 className="form_login--register__login">
-                                Don't Have an account?
+                                Already Have an account?
                             </div> 
                         </form>
                     </Card>
