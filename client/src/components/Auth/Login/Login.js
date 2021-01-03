@@ -3,7 +3,6 @@ import Card from '../../UI/Card/Card';
 import Header from '../../Header/Header';
 import '../Auth.css';
 import axios from 'axios';
-import Register from '../Register/Register';
 
 
 
