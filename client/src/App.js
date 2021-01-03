@@ -8,14 +8,14 @@ import Layout from './components/Layout/Layout';
 import Background from './components/Background/Background';
 
 
+
 function App() {
   return (
     <div className="App">
-      <Background />
-      <Layout />
+      <Background />      
       <Switch>
         <Route exact path='/'>
-          <Login />
+        <Layout />
         </Route>
 
         <Route exact path='/profile'>
