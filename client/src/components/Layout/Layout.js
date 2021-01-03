@@ -7,6 +7,7 @@ const Layout = () => {
             <Auth />
         </>
     )
+    
 };
 
 export default Layout;
