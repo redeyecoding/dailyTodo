@@ -9,7 +9,6 @@ const Nav = props => {
     // Right code for having two separate headers.
     return (
         <>           
-            <Logo />
             <nav className="head-main-menu header-area">
                 <ul className="head-main-menu_items">
                     <li className="head-main-menu_label">
