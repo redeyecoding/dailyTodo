@@ -1,12 +1,12 @@
 import React from 'react'
 import './Logo.css';
 import { NavLink } from 'react-router-dom';
-import "../../../assets/images/Todo";
+// import "../../../assets/images/Todplogo.png";
 
 
 const Logo = () => {
     return (
-        <img src={ logo }className="logo-container"></img>
+        <img src="../../../assets/images/Todplogo.png" className="logo-container"></img>
     )
 };
 
