@@ -1,10 +1,10 @@
 .main-header {
-    background-color:#9a5adb;
+    background-color:#fff;
     position: fixed;
     top:0;
     left:0;
     width: 100%;
-    border-bottom: 1rem solid #fafafa;
+    border-bottom: 1rem solid #9a5adb;
     z-index: 10;
 }
 
