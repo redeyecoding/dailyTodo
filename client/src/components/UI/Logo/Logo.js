@@ -4,9 +4,10 @@ import { NavLink } from 'react-router-dom';
 import  logo from "../../../assets/images/DoSTUFF.png";
 
 
-const Logo = () => {
+const Logo = props => {
+    const isLoggedIn = props.isLoggedIn;
     return (
-        <a className="logo-container ">
+        <a className={ isLoggedIn ? "logo-container__logged-in" : "logo-container__logged-out" }>
             <img src={ logo }/>
         </a>
         
