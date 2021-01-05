@@ -1,23 +1,17 @@
 .logo-container {
-    /* display: inline-block; */
-    background: #fff;
+    display: inline-block;
     vertical-align: middle;
-    width: 100px;
-    height: 100px;
+    height: 80px;
     position: relative;
     top: 0;
     right: 25%;
     margin: 10px;
 }
 
-/* .company-logo {
-    background-image: url("../../../assets/images/Todplogo.png");
-    background-position: 5px;
-    background-size: cover;
-    display: inline-block;
-    vertical-align: middle;
-    position: absolute;
-} */
+.logo-container img {
+    height: 100%;
+}
+
 
 .main-logo{
     text-decoration: none;
