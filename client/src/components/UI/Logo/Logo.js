@@ -1,12 +1,15 @@
 import React from 'react'
 import './Logo.css';
 import { NavLink } from 'react-router-dom';
-// import "../../../assets/images/Todplogo.png";
+import  logo from "../../../assets/images/DoSTUFF.png";
 
 
 const Logo = () => {
     return (
-        <img src="../../../assets/images/Todplogo.png" className="logo-container"></img>
+        <a className="logo-container ">
+            <img src={ logo }/>
+        </a>
+        
     )
 };
 
