@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Card from '../../UI/Card/Card';
 import '../Auth.css';
 import axios from 'axios';
+import logo from "../../../assets/images/DoSTUFF.png";
+
 
 
 const Register = props => {
@@ -59,6 +61,9 @@ const Register = props => {
                 <section className='form_login-container'>
                     <Card>
                         <form className="form_login-form" onSubmit={ event => onSubmitHandler(event) }> 
+                        <div className="form_login-title-container">
+                            <img src={ logo }/>
+                        </div>
                         <span className="form_login-form_title">SIGN UP</span>
                             <div  className='form_login-Input'>
                                 <div class="form_login--label-container">
