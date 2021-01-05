@@ -23,7 +23,7 @@ const AuthNav = props => {
 
                     <li className="head-main-menu_label">
                         <NavLink 
-                            className="nav-link user-lists"
+                            className="nav-link user-lists my-lists"
                             to="/my-lists">My Lists</ NavLink>
                     </li>
                 </ul>

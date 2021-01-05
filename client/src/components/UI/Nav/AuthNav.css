@@ -23,6 +23,14 @@
     display: inline-block;
 } 
 
+.head-main-menu_label .my-lists {
+    color: #fff;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #9a5adb;
+}
 
 .nav-link {
     text-decoration: none;
@@ -35,13 +43,13 @@
 }
 
 .user-lists {
-    background:#45db18;
+    background:#541494;
     padding: .5rem .5rem;
     border-radius: .5rem;
 }
 
 .user-lists:hover {
-    background:#45db18;
+    background:#ff3ec8;
     padding: .5rem .5rem;
     border-radius: .5rem;
     color: #fff;
