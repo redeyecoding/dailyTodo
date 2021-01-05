@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Card from '../../UI/Card/Card';
 import '../Auth.css';
 import axios from 'axios';
+import logo from "../../../assets/images/DoSTUFF.png";
 
 
 
@@ -50,7 +51,13 @@ const Login = props => {
                 <section className='form_login-container'>
                     <Card>
                         <form className="form_login-form" onSubmit={ event => onSubmitHandler(event) }> 
-                        <span className="form_login-form_title">PLEASE LOGIN</span>
+                        <div className="form_login-title-container">
+                            <img src={ logo }/>
+                        </div>
+                        <span className="form_login__title">PLEASE LOGIN</span>
+
+                        
+
                             <div className='form_login-Input'>
                                 <div class="form_login--label-container">
                                     <label class="form_login--labeling line--up">Username</label>
