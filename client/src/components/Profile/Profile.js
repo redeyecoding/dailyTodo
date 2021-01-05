@@ -8,7 +8,7 @@ const Profile = props => {
             <Header />
             <main>
                 <section>
-                    PROFILE SECTION
+                    <div></div>
                 </section>
             </main>      
         </>

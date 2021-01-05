@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import Card from '../../UI/Card/Card';
-import Header from '../../Header/Header';
 import '../Auth.css';
 import axios from 'axios';
 
@@ -47,7 +46,6 @@ const Login = props => {
     };
     return  (
         <>
-            <Header /> 
             <main className="login-container">
                 <section className='form_login-container'>
                     <Card>

@@ -1,11 +1,9 @@
 import React from 'react';
-import './Nav.css';
+import './AuthNav.css';
 import { NavLink } from 'react-router-dom';
 import Logo from '../../UI/Logo/Logo';
 
-
-
-const Nav = props => {
+const AuthNav = props => {
     // Right code for having two separate headers.
     return (
         <>           
@@ -35,4 +33,4 @@ const Nav = props => {
     )
 };
 
-export default Nav;
+export default AuthNav;
