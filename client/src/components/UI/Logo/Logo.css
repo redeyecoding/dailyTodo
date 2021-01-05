@@ -1,14 +1,26 @@
-.logo-container {
+.logo-container__logged-out {
     display: inline-block;
     vertical-align: middle;
     height: 80px;
     position: relative;
     top: 0;
-    right: 25%;
-    margin: 10px;
+    left: 22;
 }
 
-.logo-container img {
+.logo-container__logged-in {
+    display: inline-block;
+    vertical-align: middle;
+    height: 80px;
+    position: relative;
+    top: 0;
+    right: 29%;
+}
+
+.logo-container__logged-out img {
+    height: 100%;
+}
+
+.logo-container__logged-in img {
     height: 100%;
 }
 
