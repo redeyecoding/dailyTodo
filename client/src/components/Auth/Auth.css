@@ -11,7 +11,19 @@
     /* overflow: auto; */
 }
 
-.form_login-form_title {
+.form_login-title-container  {
+    height: 100px;
+    width: 100px;
+    margin: auto;
+}
+
+
+.form_login-title-container img {
+  height: 80%;
+}
+
+
+.form_login__title{
     color: #4d4949;
     display: block;
     margin-bottom: 2rem;
