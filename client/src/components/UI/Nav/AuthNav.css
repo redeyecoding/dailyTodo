@@ -26,23 +26,23 @@
 
 .nav-link {
     text-decoration: none;
-    color: #fff;
+    color: #9a5adb;
 }
 
 .nav-link:hover {
-    color:#fff;
+    color:#541494;
     text-decoration: none;
 }
 
 .user-lists {
     background:#45db18;
-    padding: .2rem .5rem;
+    padding: .5rem .5rem;
     border-radius: .5rem;
 }
 
 .user-lists:hover {
-    background:#fff;
-    padding: .2rem .5rem;
+    background:#45db18;
+    padding: .5rem .5rem;
     border-radius: .5rem;
-    color: #45db18;
+    color: #fff;
 }
