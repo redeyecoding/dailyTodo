@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import AuthNav from '../UI/Nav/AuthNav';
-import Card from '../UI/Card/Card';
-import classes from './Header.css';
 import Logo from '../UI/Logo/Logo';
+import  { connect } from 'react-redux';
+import './Header.css';
 
-const Header = () => {
+const Header = props => {
     const isLoggedIn = true;
     return (
-        <header className='main-header'>
+        <header className={ props.isError ? 'active-modal' : 'main-header' }>
             <Logo
                 isLoggedIn={ isLoggedIn } />
             <AuthNav
@@ -17,4 +17,10 @@ const Header = () => {
     )
 };
 
-export default Header;
+const mapStateToProps = state => {
+    return {
+        isError: state.errorActive
+    }
+};
+
+export default connect(mapStateToProps)(Header);
