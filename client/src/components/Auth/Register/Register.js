@@ -4,6 +4,8 @@ import '../Auth.css';
 import axios from 'axios';
 import logo from "../../../assets/images/DoSTUFF.png";
 import { connect } from 'react-redux';
+import ModalBackground from '../../Background/ModalBackground';
+
 import {
     setAlert
  } from '../../../store/actions/alert';
@@ -35,10 +37,7 @@ const Register = props => {
     };
 
     const onSubmitHandler = async (event) => {
-        event.preventDefault();
-
-        //CONTINUE FROM HERE
-        props.testError('TYPE WHATER I WANT');
+        event.preventDefault();        
 
         const userLogin = {
             name: `${userFirstName} ${userLastName}`,
@@ -55,17 +54,19 @@ const Register = props => {
                 }
             };
 
-            const res = await axios.post('api/users', body, config)
-            console.log(res.data)
+            const res = await axios.post('api/users', body, config);
+
         } catch (error) {
-            console.log(error.response.data.errors)
+            const { msg } = error.response.data.errors[0];
+            props.testError(msg);
         }
       
     };
-    console.log(props.err)
 
+    
     return  (
-        <>
+        <>           
+            
             <main className="login-container">
                 <section className='form_login-container'>
                     <Card>
@@ -139,7 +140,8 @@ const Register = props => {
 
 const mapStateToProps = state => {
     return {
-        err: state.error
+        err: state.error,
+        isError: state.errorActive
     }
 };
 
