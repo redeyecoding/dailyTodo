@@ -1,7 +1,8 @@
 import * as actionType from '../actions/actionTypes';
 
 const initialState = {
-    error: ''
+    error: '',
+    errorActive: false
 };
 
 const setAlert = (state=initialState, action) => {
@@ -10,7 +11,8 @@ const setAlert = (state=initialState, action) => {
         case actionType.SET_ALERT:
             return {
                 ...state,
-                error: action.alert
+                error: action.alert,
+                errorActive: true
             }
         default:
             return state
