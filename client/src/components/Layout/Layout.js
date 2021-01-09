@@ -1,14 +1,31 @@
 import React from 'react';
 import Auth from '../../components/Auth/Auth';
 import Header from '../Header/Header';
+import ModalBackground from '../Background/ModalBackground';
+import { connect } from 'react-redux';
 
-const Layout = () => {
+const Layout = props => {
+    const layout = null;
+
     return (
         <>
-            <Header />
-            <Auth />
+            { 
+                props.isError && 
+                <ModalBackground>
+                    <Header/>
+                    <Auth />
+                </ModalBackground> 
+            }
+            {/* <Header/>
+            <Auth /> */}
+
         </>
     )    
 };
 
-export default Layout;
+const mapStateToProps = state => {
+    return {
+        isError: state.errorActive
+    }
+};
+export default connect(mapStateToProps)(Layout);
