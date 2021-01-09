@@ -8,3 +8,13 @@
     z-index: 10;
 }
 
+.active-modal {
+    background-color:#fff;
+    position: fixed;
+    top:0;
+    left:0;
+    width: 100%;
+    border-bottom: 1rem solid #9a5adb;
+    z-index: -2;
+}
+
