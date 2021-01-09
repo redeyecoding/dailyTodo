@@ -9,9 +9,12 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import alertReducer from './store/Reducers/alertReducer';
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__() || compose;
 
-let store = createStore(alertReducer, composeEnhancers);
+let store = createStore(
+  alertReducer, 
+  compose(composeEnhancers, applyMiddleware(thunk))
+  );
 
 
 
