@@ -3,6 +3,10 @@ import Card from '../../UI/Card/Card';
 import '../Auth.css';
 import axios from 'axios';
 import logo from "../../../assets/images/DoSTUFF.png";
+import { connect } from 'react-redux';
+import {
+    setAlert
+ } from '../../../store/actions/alert';
 
 
 
@@ -33,6 +37,9 @@ const Register = props => {
     const onSubmitHandler = async (event) => {
         event.preventDefault();
 
+        //CONTINUE FROM HERE
+        props.testError('TYPE WHATER I WANT');
+
         const userLogin = {
             name: `${userFirstName} ${userLastName}`,
             email: userEmail,
@@ -55,6 +62,8 @@ const Register = props => {
         }
       
     };
+    console.log(props.err)
+
     return  (
         <>
             <main className="login-container">
@@ -128,4 +137,16 @@ const Register = props => {
     )
 };
 
-export default Register;
+const mapStateToProps = state => {
+    return {
+        err: state.error
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        testError: alert => dispatch( setAlert(alert) )
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register);
