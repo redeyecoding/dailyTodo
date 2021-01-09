@@ -5,14 +5,14 @@ import { Route, Switch } from 'react-router-dom';
 import Profile from './components/Profile/Profile';
 import Lists from './components/Lists/Lists';
 import Layout from './components/Layout/Layout';
-import Background from './components/Background/Background';
+import AuthBackground from './components/Background/AuthBackground';
 
 
 
 function App() {
   return (
     <div className="App">
-      <Background />      
+      <AuthBackground />      
       <Switch>
         <Route exact path='/'>
         <Layout />
