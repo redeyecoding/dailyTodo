@@ -1,13 +1,35 @@
 import React from 'react';
-import './AuthBackground.css';
+import classes from './AuthBackground.module.css';
+import { connect } from 'react-redux';
+import Model from '../Modal/Modal';
 
-const Background = () => (
+const Background = props => {
+    const backgroundClass = 
+        props.isError 
+        ? 
+            <>
+                <Model error='OH NO!! ERROR!' />
+                <div className={ `${classes.black_background } ${classes.positioning}` } />
+                
+            </>
+        :
+        <>
+            <div className={ `${classes.background_color } ${classes.positioning}` }></div> 
+            <div className={ `${classes.log_reg__background} ${classes.positioning}` }></div>  
+        </>
+    return (
     <>
-        <div className="background-color positioning"></div> 
-        <div className="log-reg__background positioning"></div>        
+        { backgroundClass }              
     </>
-    
-    
-    );
+    )
+};
 
-export default Background;
+
+const mapStateToProps = state => {
+    return {
+        isError: state.errorActive
+    }
+};
+
+export default connect(mapStateToProps)(Background);
+
