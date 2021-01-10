@@ -1,0 +1,23 @@
+.Default_Modal {
+    position: absolute;
+    left: 35%;
+    margin: auto;
+    height: 25rem;
+    width: 50rem;
+    border-radius: .5rem;
+    z-index: 50;
+    background-color: rgb(255, 255, 255);
+    animation-name: activate-modal;
+    animation-duration: .1s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes activate-modal {
+    0%{
+        transform: translateY(0rem);
+    }
+
+    100% {
+        transform: translateY(40rem);
+    }
+}
