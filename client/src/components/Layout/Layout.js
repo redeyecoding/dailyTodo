@@ -9,15 +9,15 @@ const Layout = props => {
 
     return (
         <>
-            { 
+            {/* { 
                 props.isError && 
                 <ModalBackground>
                     <Header/>
                     <Auth />
                 </ModalBackground> 
-            }
-            {/* <Header/>
-            <Auth /> */}
+            } */}
+            <Header/>
+            <Auth />
 
         </>
     )    

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Card from '../../UI/Card/Card';
-import '../Auth.css';
+import '../Auth.module.css';
 import axios from 'axios';
 import logo from "../../../assets/images/DoSTUFF.png";
 import { connect } from 'react-redux';
