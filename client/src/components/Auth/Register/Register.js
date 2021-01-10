@@ -4,7 +4,6 @@ import classes from './Register.module.css';
 import axios from 'axios';
 import logo from "../../../assets/images/DoSTUFF.png";
 import { connect } from 'react-redux';
-import ModalBackground from '../../Background/ModalBackground';
 
 import {
     setAlert
@@ -75,32 +74,32 @@ const Register = props => {
 
                             <div>
                                 <div class={ classes.registration_form__label_container }>
-                                    <label class={ classes.registration_form__labeling }>Username</label>
+                                    <label class={ classes.registration_form__labeling }>Firstname</label>
                                 </div>
                                 <input 
                                     onChange={ event => setFirstNameHandler(event.target.value) }
                                     className={ classes.registration_form__input }
                                     placeholder='Firstname' 
                                     value={ userFirstName }
-                                    type='email' />
+                                    type='text' />
                             </div>
 
 
                             <div>
                                 <div class={ classes.registration_form__label_container }>
-                                    <label class={ classes.registration_form__labeling }>Username</label>
+                                    <label class={ classes.registration_form__labeling }>Lastname</label>
                                 </div>
                                 <input 
                                     onChange={ event => setLastNameHandler(event.target.value) }
                                     className={ classes.registration_form__input }
                                     placeholder='Lastname' 
                                     value={ userLastName }
-                                    type='email' />
+                                    type='text' />
                             </div>
 
                             <div>
                                 <div class={ classes.registration_form__label_container }>
-                                    <label class={ classes.registration_form__labeling }>Username</label>
+                                    <label class={ classes.registration_form__labeling }>Email</label>
                                 </div>
                                 <input 
                                     onChange={ event => setUserEmailHandler(event.target.value) }
