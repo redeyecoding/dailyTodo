@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react';
 import Login from './Login/Login';
 import Register from './Register/Register';
-import './Auth.module.css';
 
 const Auth = () => {
 
