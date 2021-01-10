@@ -1,8 +1,8 @@
-.login-container {
+.main_login_container {
     height: 100%;
 }
 
-.form_login-container {
+.registration_form_container {
     position: relative;
     top: 26rem;
     /* max-width: 30%; */
@@ -11,25 +11,26 @@
     /* overflow: auto; */
 }
 
-.form_login-title-container  {
+.registration_form_title_container  {
     height: 100px;
     width: 100px;
     margin: auto;
 }
 
 
-.form_login-title-container img {
+.registration_form_title_container img {
   height: 80%;
 }
 
 
-.form_login__title{
+.registration_form__title{
     color: #4d4949;
     display: block;
     margin-bottom: 2rem;
+    font-size: 2rem;
 }
 
-.form_login--input {
+.registration_form__input {
     vertical-align: baseline;
     height: 4rem;
     width: 100%;
@@ -39,23 +40,23 @@
     margin-bottom: 2rem;   
 }
 
-.form_login--input:focus {
+.registration_form__input:focus {
    border: 2px solid #9a5adb;
 }
 
 
-.form_login--label-container {
+.registration_form__label_container {
     text-align: left;
     margin-bottom: .5rem;
 }
 
 
-.form_login--labeling {
+.registration_form__labeling {
     font-size: 2rem;
     color:#4d4949;    
 }
 
-.form_login--submit-btn {
+.registration_form__submit_btn {
     width: 15rem;
     height: 5rem;
     text-align: center;
@@ -69,11 +70,9 @@
 
 }
 
-
-
-
-.form_login--register__login{
+.registration_form__toggler{
     color: #4d4949;
     margin: 2rem 0;
     cursor: pointer;
+    font-size: 2rem;
 }

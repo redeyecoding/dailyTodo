@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Card from '../../UI/Card/Card';
-import '../Auth.module.css';
+import classes from './Register.module.css';
 import axios from 'axios';
 import logo from "../../../assets/images/DoSTUFF.png";
 import { connect } from 'react-redux';
@@ -62,73 +62,76 @@ const Register = props => {
         }
       
     };
-
-    
     return  (
         <>           
-            
-            <main className="login-container">
-                <section className='form_login-container'>
+            <main className={ classes.registration_container }>
+            <section className={ classes.registration_form_container }>
                     <Card>
-                        <form className="form_login-form" onSubmit={ event => onSubmitHandler(event) }> 
-                        <div className="form_login-title-container">
+                        <form onSubmit={ event => onSubmitHandler(event) }> 
+                        <div className={ classes.registration_form_title_container }>
                             <img src={ logo }/>
                         </div>
-                        <span className="form_login-form_title">SIGN UP</span>
-                            <div  className='form_login-Input'>
-                                <div class="form_login--label-container">
-                                    <label className="form_login--labeling line--up">First</label>
+                        <span className={ classes.registration_form__title }>PLEASE LOGIN</span>
+
+                            <div>
+                                <div class={ classes.registration_form__label_container }>
+                                    <label class={ classes.registration_form__labeling }>Username</label>
                                 </div>
                                 <input 
-                                    className="form_login--input line--up"
                                     onChange={ event => setFirstNameHandler(event.target.value) }
+                                    className={ classes.registration_form__input }
                                     placeholder='Firstname' 
                                     value={ userFirstName }
-                                    type='text' />
+                                    type='email' />
                             </div>
-                            <div  className='form_login-Input'>
-                                <div class="form_login--label-container">
-                                    <label className="form_login--labeling line--up">Last</label>
+
+
+                            <div>
+                                <div class={ classes.registration_form__label_container }>
+                                    <label class={ classes.registration_form__labeling }>Username</label>
                                 </div>
                                 <input 
-                                    className="form_login--input line--up"
                                     onChange={ event => setLastNameHandler(event.target.value) }
+                                    className={ classes.registration_form__input }
                                     placeholder='Lastname' 
                                     value={ userLastName }
-                                    type='text' />
+                                    type='email' />
                             </div>
-                            <div className='form_login-Input'>
-                                <div class="form_login--label-container">
-                                    <label class="form_login--labeling line--up">Username</label>
+
+                            <div>
+                                <div class={ classes.registration_form__label_container }>
+                                    <label class={ classes.registration_form__labeling }>Username</label>
                                 </div>
                                 <input 
                                     onChange={ event => setUserEmailHandler(event.target.value) }
-                                    className="form_login--input line--up"
+                                    className={ classes.registration_form__input }
                                     placeholder='Email' 
                                     value={ userEmail }
                                     type='email' />
                             </div>
-                            <div  className='form_login-Input'>
-                                <div class="form_login--label-container">
-                                    <label className="form_login--labeling line--up">Password</label>
+
+                            <div>
+                                <div class={ classes.registration_form__label_container }>
+                                    <label className={ classes.registration_form__labeling }>Password</label>
                                 </div>
+                                
                                 <input 
-                                    className="form_login--input line--up"
+                                    className={ classes.registration_form__input }
                                     onChange={ event => setUserPasswordHandler(event.target.value) }
                                     placeholder='Password' 
                                     value={ userPassword }
                                     type='password' />
                             </div>
-                            
-                            <div className="form_login--submit">
+
+                            <div className={ classes.registration_form__submit_container }>
                                 <button
-                                    className="form_login--submit-btn"
-                                    type='submit'>SIGN UP</button>
+                                    className={ classes.registration_form__submit_btn }
+                                    type='submit'>LOGIN</button>
                             </div>
                             <div 
                                 onClick={ props.toggleForm }
-                                className="form_login--register__login">
-                                Already Have an account?
+                                className={ classes.registration_form__toggler }>
+                                Don't Have an account?
                             </div> 
                         </form>
                     </Card>
