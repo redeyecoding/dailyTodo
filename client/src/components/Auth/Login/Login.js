@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Card from '../../UI/Card/Card';
-import '../Auth.css';
+import classes from './Login.module.css';
 import axios from 'axios';
 import logo from "../../../assets/images/DoSTUFF.png";
 
@@ -47,48 +47,48 @@ const Login = props => {
     };
     return  (
         <>
-            <main className="login-container">
-                <section className='form_login-container'>
+            <main className={ classes.main_login_container }>
+                <section className={ classes.login_form_container }>
                     <Card>
-                        <form className="form_login-form" onSubmit={ event => onSubmitHandler(event) }> 
-                        <div className="form_login-title-container">
+                        <form onSubmit={ event => onSubmitHandler(event) }> 
+                        <div className={ classes.login_form_title_container }>
                             <img src={ logo }/>
                         </div>
-                        <span className="form_login__title">PLEASE LOGIN</span>
+                        <span className={ classes.login_form__title }>PLEASE LOGIN</span>
 
-                        
-
-                            <div className='form_login-Input'>
-                                <div class="form_login--label-container">
-                                    <label class="form_login--labeling line--up">Username</label>
+                            <div>
+                                <div class={ classes.login_form__label_container }>
+                                    <label class={ classes.login_form__labeling }>Username</label>
                                 </div>
                                 <input 
                                     onChange={ event => setUserEmailHandler(event.target.value) }
-                                    className="form_login--input line--up"
+                                    className={ classes.login_form__input }
                                     placeholder='Email' 
                                     value={ userEmail }
                                     type='email' />
                             </div>
-                            <div  className='form_login-Input'>
-                                <div class="form_login--label-container">
-                                    <label className="form_login--labeling line--up">Password</label>
+
+                            <div>
+                                <div class={ classes.login_form__label_container }>
+                                    <label className={ classes.login_form__labeling }>Password</label>
                                 </div>
                                 
                                 <input 
-                                    className="form_login--input line--up"
+                                    className={ classes.login_form__input }
                                     onChange={ event => setUserPasswordHandler(event.target.value) }
                                     placeholder='Password' 
                                     value={ userPassword }
                                     type='password' />
                             </div>
-                            <div className="form_login--submit">
+
+                            <div className={ classes.login_form__submit_container }>
                                 <button
-                                    className="form_login--submit-btn"
+                                    className={ classes.login_form__submit_btn }
                                     type='submit'>LOGIN</button>
                             </div>
                             <div 
                                 onClick={ props.toggleForm }
-                                className="form_login--register__login">
+                                className={ classes.login_form__toggler }>
                                 Don't Have an account?
                             </div> 
                         </form>
