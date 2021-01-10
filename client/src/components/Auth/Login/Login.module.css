@@ -1,0 +1,76 @@
+.main_login_container {
+    height: 100%;
+}
+
+.login_form_container {
+    position: relative;
+    top: 26rem;
+    /* max-width: 30%; */
+    margin: 0 auto;
+    display: inline-block;
+    /* overflow: auto; */
+}
+
+.login_form_title_container  {
+    height: 100px;
+    width: 100px;
+    margin: auto;
+}
+
+
+.login_form_title_container img {
+  height: 80%;
+}
+
+
+.login_form__title{
+    color: #4d4949;
+    display: block;
+    margin-bottom: 2rem;
+}
+
+.login_form__input {
+    vertical-align: baseline;
+    height: 4rem;
+    width: 100%;
+    border: 1px solid #bbbbbb;
+    border-radius: .5rem;
+    padding-left: 1rem; 
+    margin-bottom: 2rem;   
+}
+
+.login_form__input:focus {
+   border: 2px solid #9a5adb;
+}
+
+
+.login_form__label_container {
+    text-align: left;
+    margin-bottom: .5rem;
+}
+
+
+.login_form__labeling {
+    font-size: 2rem;
+    color:#4d4949;    
+}
+
+.login_form__submit_btn {
+    width: 15rem;
+    height: 5rem;
+    text-align: center;
+    font-size: 1.7rem;
+    background: #9a5adb;
+    border: none;
+    border-radius: .5rem;
+    color: #fff;
+    /* font-weight: bold; */
+    cursor: pointer;
+
+}
+
+.login_form__toggler{
+    color: #4d4949;
+    margin: 2rem 0;
+    cursor: pointer;
+}
