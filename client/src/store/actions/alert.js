@@ -5,6 +5,6 @@ console.log(actionType.SET_ALERT)
 export const setAlert = ( alert ) => {
     return {
         type: actionType.SET_ALERT,
-        alert: alert
+        alert: alert,
     }
 };
