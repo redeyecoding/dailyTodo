@@ -57,7 +57,7 @@ const Register = props => {
 
         } catch (error) {
             const { msg } = error.response.data.errors[0];
-            props.testError(msg)
+            props.onAlert(msg);
 
         }
       
@@ -154,7 +154,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        testError: alert => dispatch( setAlert( alert ) )
+        onAlert: alert => dispatch( setAlert( alert ) )
     }
 };
 
