@@ -57,9 +57,14 @@ const Register = props => {
 
         } catch (error) {
             const { msg } = error.response.data.errors[0];
-            props.testError(msg);
+            props.testError(msg)
+
         }
       
+    };
+
+    const onCloseErrorHandler = event => {
+        setUserPassword(event)
     };
     return  (
         <>           
@@ -149,7 +154,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        testError: alert => dispatch( setAlert(alert) )
+        testError: alert => dispatch( setAlert( alert ) )
     }
 };
 
