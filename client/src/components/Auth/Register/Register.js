@@ -6,7 +6,7 @@ import logo from "../../../assets/images/DoSTUFF.png";
 import { connect } from 'react-redux';
 
 import {
-    setAlert
+    setAlert,    
  } from '../../../store/actions/alert';
 
 
@@ -53,12 +53,17 @@ const Register = props => {
                 }
             };
 
-            const res = await axios.post('api/users', body, config);
+            const res = await axios
+                .post('api/users', body, config)
+                .catch((err) => { 
+                    console.log(err); 
+                    props.onAlert(err.msg);
+                })
+
 
         } catch (error) {
             const { msg } = error.response.data.errors[0];
             props.onAlert(msg);
-
         }
       
     };
@@ -154,7 +159,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAlert: alert => dispatch( setAlert( alert ) )
+        onAlert: alert => dispatch( setAlert( alert ))
     }
 };
 
