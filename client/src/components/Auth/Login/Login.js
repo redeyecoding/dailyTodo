@@ -3,6 +3,12 @@ import Card from '../../UI/Card/Card';
 import classes from './Login.module.css';
 import axios from 'axios';
 import logo from "../../../assets/images/DoSTUFF.png";
+import { connect } from 'react-redux';
+
+import {
+    setAlert,
+    
+ } from '../../../store/actions/alert';
 
 
 
@@ -38,10 +44,19 @@ const Login = props => {
                 }
             };
 
-            const res = await axios.post('api/auth/', body, config)
-            console.log(res.data)
+            const res = await axios
+                .post('api/auth/', body, config)
+                .catch((err) => { 
+                    console.log(err); 
+                    props.onAlert(err.msg);
+                })
+
         } catch (error) {
-            console.log(error.response.data.errors)
+            console.error(error.messages)
+            const { msg } = error.response.data.errors[0];
+
+            props.onAlert(msg);
+
         }
       
     };
@@ -99,4 +114,18 @@ const Login = props => {
     )
 };
 
-export default Login;
+
+const mapStateToProps = state => {
+    return {
+        err: state.error,
+        isError: state.errorActive
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onAlert: alert => dispatch( setAlert( alert ))
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
