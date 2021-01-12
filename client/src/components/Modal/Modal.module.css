@@ -4,7 +4,7 @@
     margin: auto;
     height: 22rem;
     width: 40rem;
-    border-radius: .5rem;
+    border-radius: 1rem;
     z-index: 50;
     background-color: rgb(255, 255, 255);
 
@@ -20,14 +20,12 @@
     margin: auto;
     /* background: yellow; */
     height: 40%;
-    width: 50%;
+    width: 60%;
     font-size: 2rem;
 }
 
 .error_message > span {
     margin: auto;
-    position: relative;
-    top: 30%;
 
 }
 

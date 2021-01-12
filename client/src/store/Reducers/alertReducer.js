@@ -5,8 +5,9 @@ const initialState = {
     errorActive: false
 };
 
-const setAlert = (state=initialState, action) => {
+const alertReducer = (state=initialState, action) => {
     console.log(action.alert)
+
     switch( action.type ) {
         case actionType.SET_ALERT:
             return {
@@ -14,9 +15,15 @@ const setAlert = (state=initialState, action) => {
                 error: action.alert,
                 errorActive: true
             }
+        case actionType.CLOSE_ALERT:
+            return {
+                ...state,
+                error: '',
+                errorActive: action.alert
+            }
         default:
             return state
     }
 };
 
-export default setAlert;
+export default alertReducer;
