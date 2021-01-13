@@ -22,10 +22,12 @@
     height: 40%;
     width: 60%;
     font-size: 2rem;
+    color: #000;
 }
 
 .error_message > span {
     margin: auto;
+    color: #bbbbbb;
 
 }
 
