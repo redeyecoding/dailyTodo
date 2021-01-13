@@ -46,16 +46,20 @@ const Login = props => {
 
             const res = await axios
                 .post('api/auth/', body, config)
-                .catch((err) => { 
-                    console.log(err); 
-                    props.onAlert(err.msg);
+                .then( response => response) 
+                .catch( err => { 
+                    const { errors } = err.response.data.errors;
+                    
+                    for (let i=0; i < errors.length; i++) {
+                        console.log(errors[i]['msg'])
+                    }
+
+                    // props.onAlert(errorMessage);
                 })
 
         } catch (error) {
+            console.log('testing123')
             console.error(error.messages)
-            const { msg } = error.response.data.errors[0];
-
-            props.onAlert(msg);
 
         }
       
