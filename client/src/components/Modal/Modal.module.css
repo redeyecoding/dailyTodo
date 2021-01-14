@@ -8,7 +8,6 @@
     z-index: 50;
     background-color: rgb(255, 255, 255);
 
-
     animation-name: activate-modal;
     animation-duration: .1s;
     animation-fill-mode: forwards;
@@ -23,17 +22,17 @@
     width: 60%;
     font-size: 2rem;
     color: #000;
+    
 }
 
 .error_message > span {
     margin: auto;
-    color: #bbbbbb;
-
+    color: #2e2a2a;
 }
 
 .close_error {
     display: inline-block;
-    font-size: 3rem;
+    font-size: 2.5rem;
     position: relative;
     top: 5%;
     left: 40%;
