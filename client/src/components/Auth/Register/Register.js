@@ -80,7 +80,7 @@ const Register = props => {
                         <div className={ classes.registration_form_title_container }>
                             <img src={ logo }/>
                         </div>
-                        <span className={ classes.registration_form__title }>PLEASE LOGIN</span>
+                        <span className={ classes.registration_form__title }>PLEASE REGISTER</span>
 
                             <div>
                                 <div class={ classes.registration_form__label_container }>
@@ -135,12 +135,12 @@ const Register = props => {
                             <div className={ classes.registration_form__submit_container }>
                                 <button
                                     className={ classes.registration_form__submit_btn }
-                                    type='submit'>LOGIN</button>
+                                    type='submit'>SIGN UP</button>
                             </div>
                             <div 
                                 onClick={ props.toggleForm }
                                 className={ classes.registration_form__toggler }>
-                                Don't Have an account?
+                                Already have an account?
                             </div> 
                         </form>
                     </Card>
