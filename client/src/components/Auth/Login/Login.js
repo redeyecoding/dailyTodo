@@ -34,7 +34,6 @@ const Login = props => {
             email: userEmail,
             password: userPassword
         };
-
         const body = JSON.stringify(userLogin);
 
         try {
@@ -53,8 +52,6 @@ const Login = props => {
                     for (let i=0; i < errors.length; i++) {
                         console.log(errors[i]['msg'])
                     }
-
-                    // props.onAlert(errorMessage);
                 })
 
         } catch (error) {
