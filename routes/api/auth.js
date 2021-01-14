@@ -32,13 +32,13 @@ router.post('/',[
         // Check email
         const user = await User.findOne({ email: email })
         if (!user) {
-            return res.status(401).json({ msg: 'Invalid Credentials' })
+            return res.status(401).json({ errors: ['Invalid Credentials'] })
         };
 
         // Check password
         const validPassword = await bcrypt.compare(password, user.password);
         if (!validPassword) {
-            return res.status(401).json({ msg: 'Invalid Credentials' })
+            return res.status(401).json({ errors: ['Invalid Credentials'] })
         };
 
         // setup Token
