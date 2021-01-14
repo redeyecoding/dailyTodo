@@ -36,30 +36,24 @@ const Login = props => {
         };
         const body = JSON.stringify(userLogin);
 
-        try {
-            const config = {
+        const config = {
                 headers: {
                     'Content-Type': 'application/json'
                 }
-            };
+        };
 
-            const res = await axios
-                .post('api/auth/', body, config)
-                .then( response => response) 
-                .catch( err => { 
-                    const { errors } = err.response.data.errors;
-                    
-                    for (let i=0; i < errors.length; i++) {
-                        console.log(errors[i]['msg'])
-                    }
-                })
-
-        } catch (error) {
-            console.log('testing123')
-            console.error(error.messages)
-
-        }
-      
+        const res = await axios
+            .post('api/auth/', body, config)
+            .then( response => response) 
+            .catch( err => {
+                const errors = err.response.data.errors.map( errMessage => {
+                    if ( typeof(errMessage)  === 'string' ) return errMessage;
+                    return errMessage.msg;
+                });
+                console.log(errors)
+            props.onAlert(errors.join(' '));            
+        });
+ 
     };
     return  (
         <>
