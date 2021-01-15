@@ -67,6 +67,10 @@
     color: #fff;
     /* font-weight: bold; */
     cursor: pointer;
+}
+ 
+.login_form__submit_btn:hover {
+    background: #7141a0;
 
 }
 
@@ -75,4 +79,8 @@
     margin: 2rem 0;
     cursor: pointer;
     font-size: 2rem;
+}
+
+.login_form__toggler:hover {
+    color: #9a5adb;
 }
