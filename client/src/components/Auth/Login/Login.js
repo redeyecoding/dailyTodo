@@ -50,7 +50,7 @@ const Login = props => {
                     if ( typeof(errMessage)  === 'string' ) return errMessage;
                     return errMessage.msg;
                 });
-                console.log(errors)
+            console.error(errors);
             props.onAlert(errors.join(' '));            
         });
  

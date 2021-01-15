@@ -46,26 +46,23 @@ const Register = props => {
 
         const body = JSON.stringify(userLogin);
 
-        try {
-            const config = {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            };
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
 
-            const res = await axios
-                .post('api/users', body, config)
-                .catch((err) => { 
-                    console.log(err); 
-                    props.onAlert(err.msg);
-                })
-
-
-        } catch (error) {
-            const { msg } = error.response.data.errors[0];
-            props.onAlert(msg);
-        }
-      
+        const res = await axios
+            .post('api/users', body, config)
+            .then(response => response)
+            .catch( err => {
+                const errors = err.response.data.errors.map( errMessage => {
+                    if ( typeof(errMessage)  === 'string' ) return errMessage;
+                    return errMessage.msg;
+                });
+            console.error(errors)
+            props.onAlert(errors.join(' '));            
+        });           
     };
 
     const onCloseErrorHandler = event => {
