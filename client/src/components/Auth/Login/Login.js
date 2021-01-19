@@ -53,6 +53,13 @@ const Login = props => {
             console.error(errors);
             props.onAlert(errors.join(' '));            
         });
+
+        // Testing cookies
+        // const res = await axios
+        // .get('api/auth/')
+        // .then( response => response) 
+
+
  
     };
     return  (
