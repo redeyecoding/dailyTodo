@@ -3,9 +3,11 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 3002;
 const connectToDatabase = require('./config/db');
+var cookieParser = require('cookie-parser')
 
 // Init Middleware
 app.use(express.json({extended: false}));
+app.use(cookieParser())
 
 // Connect to Database
 connectToDatabase();
