@@ -8,7 +8,7 @@ const Profile = props => {
             <Header />
             <main>
                 <section>
-                    <div></div>
+                    <div>YOU ARE LOGGED IN!</div>
                 </section>
             </main>      
         </>
