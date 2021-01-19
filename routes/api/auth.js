@@ -8,9 +8,13 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const tokenSecret = process.env.TOKEN_SECRET;
 
-
+// router.get('/', function(req, res){
+//     console.log('Cookies: ', req.cookies);
+//     res.cookie('name', 'express').send('cookie set'); //Sets name = express
+//  });
 
 // POST /api/auth
+
 // Login User
 // @ACcess 
 router.post('/',[
@@ -32,13 +36,13 @@ router.post('/',[
         // Check email
         const user = await User.findOne({ email: email })
         if (!user) {
-            return res.status(401).json({ errors: ['Invalid Credentials'] })
+            return res.status(403).json({ errors: ['Invalid Credentials'] })
         };
 
         // Check password
         const validPassword = await bcrypt.compare(password, user.password);
         if (!validPassword) {
-            return res.status(401).json({ errors: ['Invalid Credentials'] })
+            return res.status(403).json({ errors: ['Invalid Credentials'] })
         };
 
         // setup Token
@@ -48,13 +52,15 @@ router.post('/',[
                 id: user.id
             }
         };
+        
         jwt.sign({ 
             data: payload }, 
             tokenSecret,
-            { expiresIn: '3hr' },
+            // { expiresIn: '3hr' },
             (err, token) => {
                 if (err) throw err ;
-                res.json({ token });
+                res.cookie('authCookie', token, { maxAge:3600,httpOnly:true })
+                    .send('LOGGED IN')               
             });
 
     } catch(err) {
