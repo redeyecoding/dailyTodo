@@ -58,8 +58,8 @@ router.post('/',[
             tokenSecret,
             // { expiresIn: '3hr' },
             (err, token) => {
-                if (err) throw err ;
-                res.cookie('authCookie', token, { maxAge:3600,httpOnly:true })
+                if (err) throw err ;               
+                res.cookie('_userHostSession_sameSite',token , { maxAge:3600,httpOnly:true })
                     .send('LOGGED IN')               
             });
 
