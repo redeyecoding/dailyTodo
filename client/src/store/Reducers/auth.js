@@ -12,11 +12,19 @@ const initialState = {
 };
 
 export const registerReducer = ( state=initialState, action) => {
-
+    
     switch( action.type ) {
         case REGISTER_FAIL:
             return {
-                ...state
+                ...state,
+                isAuthenticated: false,
+                loading: false
+            }
+        case REGISTER_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                isAuthenticated: true
             }
     }
 };
