@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Card from '../../UI/Card/Card';
 import classes from './Login.module.css';
-import axios from 'axios';
 import logo from "../../../assets/images/DoSTUFF.png";
 import { connect } from 'react-redux';
+import { login } from '../../../store/actions/auth';
+
 
 import {
     setAlert,
@@ -30,37 +31,7 @@ const Login = props => {
     const onSubmitHandler = async (event) => {
         event.preventDefault();
 
-        const userLogin = {
-            email: userEmail,
-            password: userPassword
-        };
-        const body = JSON.stringify(userLogin);
 
-        const config = {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-        };
-
-        const res = await axios
-            .post('api/auth/', body, config)
-            .then( response => response) 
-            .catch( err => {
-                const errors = err.response.data.errors.map( errMessage => {
-                    if ( typeof(errMessage)  === 'string' ) return errMessage;
-                    return errMessage.msg;
-                });
-            console.error(errors);
-            props.onAlert(errors.join(' '));            
-        });
-
-        // Testing cookies
-        // const res = await axios
-        // .get('api/auth/')
-        // .then( response => response) 
-
-
- 
     };
     return  (
         <>
@@ -126,7 +97,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAlert: alert => dispatch( setAlert( alert ))
+        onAlert: alert => dispatch( setAlert( alert )),
+        onLogin: (email, password) => dispatch( login(email, password) )
     }
 };
 
