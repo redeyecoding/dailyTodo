@@ -11,8 +11,8 @@ export const login = ({ email, password }) => async dispatch => {
             headers: {
                 'Content-Type': 'application/json'
             }
-    }; 
-
+    };
+    
     try {
         const res = await axios.post('api/auth/', body, config)
 
