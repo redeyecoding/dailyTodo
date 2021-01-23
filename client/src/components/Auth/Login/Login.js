@@ -11,8 +11,6 @@ import {
     
  } from '../../../store/actions/alert';
 
-
-
 const Login = props => {
     const [ userEmail, setUserEmail ] = useState('');
     const [ userPassword, setUserPassword ] = useState('');
@@ -24,15 +22,9 @@ const Login = props => {
         setUserEmail(event)
     }
 
-    const setUserPasswordHandler = event => {
-        setUserPassword(event)
-    }
+    const setUserPasswordHandler = event => setUserPassword(event);
 
-    const onSubmitHandler = async (event) => {
-        event.preventDefault();
-
-
-    };
+    const onSubmitHandler = async (event) => event.preventDefault();
     return  (
         <>
             <main className={ classes.main_login_container }>
@@ -86,7 +78,6 @@ const Login = props => {
         </>
     )
 };
-
 
 const mapStateToProps = state => {
     return {
