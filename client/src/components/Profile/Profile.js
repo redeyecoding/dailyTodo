@@ -1,22 +1,22 @@
 import React from 'react';
 import Header from '../../components/Header/Header';
 import Card from '../../components/UI/Card/Card';
+import classes from './Profile.module.css';
 
 const Profile = props => {
     return (
         <>
-            <Header />
-            <h1>Profile</h1>
+            {/* <Header /> */}
             <main>             
-                <Card className='profile_save__container'> 
-                    <div>
-                        <img />
-                        <span className='profile_save_label'>User: UserName</span>
-                    </div>                          
-                    <div className='profile_save_btn'>Save Button</div>
+                <Card customClass={ classes.profile_main }> 
+                        <div >
+                            <h1 className={ classes.profile_h1_title }>Profile</h1>
+                            <span className='profile_save_label'>User: UserName</span>
+                        </div>                          
+                        <div className='profile_save_btn'>Save Button</div>
                 </Card>
 
-                <Card className='profile_data__container'>
+                <Card customClass={ classes.user_data }>
                     <div className='profile_avatar__container'>
                         <img className='profile_avatar'/>
                         <span>Account</span>
