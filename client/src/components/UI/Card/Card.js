@@ -1,11 +1,14 @@
 import React from 'react';
-import classes from  './Card.module.css';
+import { Default } from  './Card.module.css';
 import { connect } from 'react-redux';
+import cn from 'classnames';
+
 
 const Card = props => {
+
     return (
-        <div className={ classes.Default }>
-            {props.children}
+        <div className={ cn(Default, props.customClass) } >
+            { props.children }
         </div>
     )
 };
