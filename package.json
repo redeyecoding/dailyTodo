@@ -22,6 +22,7 @@
   "homepage": "https://github.com/redeyecoding/dailyTodo#readme",
   "dependencies": {
     "bcrypt": "^5.0.0",
+    "classnames": "^2.2.6",
     "config": "^3.3.3",
     "cookie-parser": "^1.4.5",
     "custom-env": "^2.0.1",
