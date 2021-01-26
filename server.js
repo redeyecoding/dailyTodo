@@ -3,13 +3,15 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 3002;
 const connectToDatabase = require('./config/db');
-const cookieParser = require('cookie-parser')
+const cookieParser = require('cookie-parser');
 const userSessionSecret = process.env.USER_SESSION_SECRET;
 const session =  require('express-session');
+const cors = require('cors');
 
 // Init Middleware
 app.use(express.json({extended: false}));
-app.use(cookieParser())
+app.use(cookieParser());
+app.use(cors());
 
 // Connect to Database
 connectToDatabase();

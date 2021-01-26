@@ -5,7 +5,6 @@ import cn from 'classnames';
 
 
 const Card = props => {
-
     return (
         <div className={ cn(Default, props.customClass) } >
             { props.children }

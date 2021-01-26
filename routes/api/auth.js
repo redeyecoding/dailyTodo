@@ -3,7 +3,6 @@ const router = express.Router();
 const auth = require('../../authMiddleware/auth');
 const { check, validationResult } = require('express-validator');
 const User = require('../../models/Users');
-const { restart } = require('nodemon');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const tokenSecret = process.env.TOKEN_SECRET;
@@ -24,7 +23,6 @@ router.post('/',[
         .not()
         .isEmpty()
 ], async (req, res) => {
-
     const errors = validationResult(req);    
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() })
@@ -53,18 +51,13 @@ router.post('/',[
             }
         };
         
-        jwt.sign({ 
-            data: payload }, 
-            tokenSecret,
-            // { expiresIn: '3hr' },
-            (err, token) => {
-                if (err) throw err ;               
-                res.cookie('_userHostSession_sameSite',token , { maxAge:3600,httpOnly:true })
-                    .send('LOGGED IN')               
-            });
+        const token = jwt.sign({ data: payload }, tokenSecret);
+        res.cookie('_userHostSession_sameSite',token , { maxAge:3600,httpOnly:true });
+        res.json({ token })
 
     } catch(err) {
         console.error(err.message);
+        console.log('TSTing123')
         res.status(500).send('Server Error')
     };
 });

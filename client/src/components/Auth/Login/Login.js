@@ -24,7 +24,10 @@ const Login = props => {
 
     const setUserPasswordHandler = event => setUserPassword(event);
 
-    const onSubmitHandler = async (event) => event.preventDefault();
+    const onSubmitHandler = async (event) => {
+        event.preventDefault();
+        await props.onLogin({ userEmail, userPassword });
+    };
     return  (
         <>
             <main className={ classes.main_login_container }>

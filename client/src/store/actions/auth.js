@@ -4,8 +4,8 @@ import {
     REGISTER_SUCCESS
 } from './actionTypes';
 
-export const login = ({ email, password }) => async dispatch => {
-    const body = JSON.stringify({ email, password });
+export const login = ({ userEmail, userPassword }) => async dispatch => {
+    const body = JSON.stringify({ userEmail, userPassword });
     
     const config = {
             headers: {
