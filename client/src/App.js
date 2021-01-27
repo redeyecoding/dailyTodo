@@ -21,7 +21,11 @@ function App() {
 
         <Route exact path='/my-lists'>
           <Lists />
-          
+                  
+        </Route>
+        <Route exact path='/contact-us'>
+          <Lists />
+                  
         </Route>
 
       </Switch>             
