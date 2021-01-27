@@ -12,6 +12,7 @@ const Card = props => {
     )
 };
 
+
 const mapStateToProps = state => {
     return {
         isError: state.errorActive
