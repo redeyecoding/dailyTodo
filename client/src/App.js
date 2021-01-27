@@ -5,9 +5,6 @@ import Lists from './components/Lists/Lists';
 import Layout from './components/Layout/Layout';
 import AuthBackground from './components/Background/AuthBackground';
 
-
-
-
 function App() {
   return (
     
@@ -24,7 +21,13 @@ function App() {
 
         <Route exact path='/my-lists'>
           <Lists />
+                  
         </Route>
+        <Route exact path='/contact-us'>
+          <Lists />
+                  
+        </Route>
+
       </Switch>             
     </div>
   );

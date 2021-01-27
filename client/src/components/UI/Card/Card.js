@@ -2,7 +2,7 @@ import React from 'react';
 import { Default } from  './Card.module.css';
 import { connect } from 'react-redux';
 import cn from 'classnames';
-
+let customClass;
 
 const Card = props => {
     return (
@@ -11,6 +11,7 @@ const Card = props => {
         </div>
     )
 };
+
 
 const mapStateToProps = state => {
     return {
