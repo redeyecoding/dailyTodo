@@ -1,5 +1,6 @@
-const verifyUser = ( todo, userId, paramsId ) => {
-//
-};
 
-module.exports = verifyUser;
+const tokenSecret = process.env.TOKEN_SECRET;
+
+module.exports = {
+    jwtConfig: { secret: tokenSecret, algorithms: ['HS256'] }
+};

@@ -6,14 +6,16 @@ const User = require('../../models/Users');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const tokenSecret = process.env.TOKEN_SECRET;
+const jwtExpress = require('express-jwt');
+const { jwtConfig } = require('./utils');
 
-// router.get('/', function(req, res){
-//     console.log('Cookies: ', req.cookies);
-//     res.cookie('name', 'express').send('cookie set'); //Sets name = express
-//  });
 
+router.get('/prodata',jwtExpress(jwtConfig), function(req, res){
+    res.send('your protect3ed data!!'); //Sets name = express
+ });
+
+ 
 // POST /api/auth
-
 // Login User
 // @ACcess 
 router.post('/',[
@@ -59,6 +61,7 @@ router.post('/',[
         console.error(err.message);
         console.log('TSTing123')
         res.status(500).send('Server Error')
+
     };
 });
 
