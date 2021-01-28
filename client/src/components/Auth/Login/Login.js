@@ -4,6 +4,7 @@ import classes from './Login.module.css';
 import logo from "../../../assets/images/DoSTUFF.png";
 import { connect } from 'react-redux';
 import { login } from '../../../store/actions/auth';
+import axios from 'axios';
 
 
 import {
@@ -26,7 +27,23 @@ const Login = props => {
 
     const onSubmitHandler = async (event) => {
         event.preventDefault();
-        await props.onLogin({ userEmail, userPassword });
+        // await props.onLogin({ userEmail, userPassword });
+        const body = JSON.stringify({ email: userEmail, password: userPassword });
+    
+        const config = {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+        };
+        await axios.post('api/auth/', body, config)
+            .then(res => res).catch(error => console.log(error))
+    };
+
+    const getDataPro = () => {
+        axios.get('api/auth/prodata')
+        .then(res => res)
+        .catch(err => console.error(err.message))
+
     };
     return  (
         <>
@@ -68,6 +85,10 @@ const Login = props => {
                                 <button
                                     className={ classes.login_form__submit_btn }
                                     type='submit'>LOGIN</button>
+                                <button
+                                    onClick={ getDataPro }
+                                    className={ classes.login_form__submit_btn }
+                                    type='submit'>GET PROTECTED DATA</button>
                             </div>
                             <div 
                                 onClick={ props.toggleForm }
