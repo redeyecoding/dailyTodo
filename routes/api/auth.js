@@ -14,7 +14,7 @@ router.get('/prodata',jwtExpress(jwtConfig), function(req, res){
     res.send('your protect3ed data!!'); //Sets name = express
  });
 
- 
+
 // POST /api/auth
 // Login User
 // @ACcess 
@@ -29,7 +29,6 @@ router.post('/',[
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() })
     };
-
     const { email, password } = req.body;
 
     try {
@@ -52,10 +51,10 @@ router.post('/',[
                 id: user.id
             }
         };
-        
+
         const token = jwt.sign({ data: payload }, tokenSecret);
-        res.cookie('_userHostSession_sameSite',token , { maxAge:3600,httpOnly:true });
-        res.json({ token })
+        res.cookie('token',token , { maxAge:3600,httpOnly:true });
+        res.send('LOGGED IN')
 
     } catch(err) {
         console.error(err.message);
@@ -63,7 +62,6 @@ router.post('/',[
         res.status(500).send('Server Error')
 
     };
+
 });
-
-
 module.exports = router;
