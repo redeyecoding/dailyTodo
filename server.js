@@ -5,7 +5,6 @@ const port = process.env.PORT || 3002;
 const connectToDatabase = require('./config/db');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
-const jwtExpress = require('express-jwt');
 const tokenSecret = process.env.TOKEN_SECRET;
 
 // Init Middleware
@@ -15,12 +14,7 @@ app.use(cors());
 
 // Connect to Database
 connectToDatabase();
-app.use(
-    jwtExpress({
-      secret: tokenSecret,
-      getToken: req => req.cookies.token
-    })
-  );
+
 
 app.use('/api/users', require('./routes/api/users'));
 app.use('/api/auth', require('./routes/api/auth'));
